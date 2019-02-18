@@ -46,3 +46,4 @@ From the users view they will log in and see a balance of their credits, a link 
 3. Functionality to work on past the capstone presentation 
    - pool style bets
    - abilities to bet on more then just sports outcomes *ex: award show nominations and winners*
+kgghgkljhiuygibnj
