@@ -1,0 +1,24 @@
+<h2>Sign up</h2>
+
+<form action="{% url 'users:register_user' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{next}}"/>
+    <input type="text" name="username" required placeholder="username"/>
+    <input type="text" name="email" required placeholder="email address"/>
+    <input type="password" id="input_password" name="password" required placeholder="password"/>
+    <input type="password" id="input_password_confirm" name="confirm_password" required placeholder="confirm password"/>
+    <button id="bt_submit" type="submit">register</button>
+</form>
+
+<script type="text/javascript">
+    let input_password = document.querySelector('#input_password')
+    let input_password_confirm = document.querySelector('#input_password_confirm')
+    let bt_submit = document.querySelector('#bt_submit')
+    bt_submit.onclick = function() {
+        if (input_password.value !== input_password_confirm.value)
+            return false
+    }
+
+</script>
+
+
