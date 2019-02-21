@@ -15,10 +15,13 @@ def register_user(request):
     password = request.POST['password']
     confirm_password = request.POST['confirm_password']
     next = request.POST['next']
-
+    
     user = User.objects.create_user(username, email, password)
     login(request, user)
-    credits = 500.00
+    credits = 500
+
+    user_profile = UserProfile(user=user, credits=credits)
+    user_profile.save()
 
     # create user profile with 100 credits to start
 
