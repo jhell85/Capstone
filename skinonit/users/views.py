@@ -23,7 +23,7 @@ def register_user(request):
     user_profile = UserProfile(user=user, credits=credits)
     user_profile.save()
 
-    # create user profile with 100 credits to start
+    # create user profile with 500 credits to start
 
     if next == '':
         return HttpResponseRedirect(reverse('users:protected'))
@@ -44,3 +44,5 @@ def login_user(request):
             return HttpResponseRedirect(reverse('users:protected'))
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('users:index'))
+
+

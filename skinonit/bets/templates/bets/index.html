@@ -1,0 +1,10 @@
+<p3>Your at the bets index</p3>
+
+<form action="{% url 'bets:create_bet' %}" method="post">
+    {% csrf_token %}
+    <input type="text" name="name" required placeholder="name your bet"/>
+    <input type="number" min="1" name="ammount" required placeholder="wager ammount"/>
+    <input type=
+    <button type="submit">SUBMIT</button>
+
+</form>
