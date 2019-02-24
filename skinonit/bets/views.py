@@ -38,14 +38,19 @@ def create_bet(request):
 def wager_bet(request):
     user = request.user.id
     amount = request.POST['amount']
-    my_string = "3"
     for_against = request.POST['for_against']
     bet = request.POST['bet'] 
-    user_credits = request.user.userprofile.credits
+    
+    user_credits = UserProfile.objects.get(pk=user).credits
+
+    # user_credits = request.user.userprofile.credits #(why does this work what is it getting)
     new_credits = (user_credits) - int(amount)
+    
+    user_profile = UserProfile.objects.get(pk=user)
     # user_profile = request.user.userprofile
-    # user_profile = request.user.userprofile
-    user_profile = UserProfile.objects.get(credits)
+    # user_profile = UserProfile.objects.get(credits)
+    user_profile.credits = new_credits
+    user_profile.save()
     print('\n'*25, user_profile, '\n'*25)
 
     userbet = UserBet(user_id=user,ammount=amount, for_against=for_against, bet_id=bet)
