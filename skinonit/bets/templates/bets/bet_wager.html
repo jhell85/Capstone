@@ -1,2 +1,29 @@
-<p1>Your at the wager page {{user.username}}</p1>
 
+<h1>Your at the wager page {{user.username}}</h1>
+
+<div>
+   <h3>{{bet.name}}</h3>
+   <div>{{bet.description}}-id{{bet.id}}</div>
+</div>
+<form action="{% url 'bets:wager_bet' %}" method="post">
+    {% csrf_token %}
+    <input type="number" name="amount" id="amount" placeholder="wager amount"><br>
+    <input type="radio" name="for_against" value="True">For<br>
+    <input type="radio" name="for_against" value="False">Against<br>
+    <input type="hidden" name="bet" value={{bet.id}}>
+    <input type="hidden" name="user" value={{user.id}}>
+    <button type="submit" id= "bt_submit">SUBMIT</button>
+</form>
+ 
+<script type="text/javascript">
+    let amount = document.querySelector('#amount')
+    let bt_submit = document.querySelector('#bt_submit')
+    bt_submit.onclick = function(){
+        if (amount.value <= 0){  
+            return false
+        }
+
+    }
+
+
+</script>
