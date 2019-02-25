@@ -8,9 +8,9 @@ class Bet(models.Model):
     def __str__(self):
         return f'{self.name} - Description: {self.description} open: {self.win}'
 class UserBet(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
+    userprofile = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
     bet = models.ForeignKey(Bet, on_delete=models.PROTECT)
-    ammount = models.IntegerField()
+    amount = models.IntegerField()
     for_against = models.BooleanField()
     def __str__(self):
-        return f'{self.bet.name} - {self.ammount} - side of bet:{self.for_against} {self.user.user.username}'
+        return f'{self.bet.name} - {self.amount} - side of bet:{self.for_against} {self.user.user.username}'

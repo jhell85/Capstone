@@ -8,5 +8,7 @@ urlpatterns = [
     path('wager_bet', views.wager_bet, name='wager_bet'),
     path('wager_page/<int:bet_id>', views.wager_page, name='wager_page'),
     path('complete_page/<int:bet_id>', views.complete_page, name='complete_page'),
+    path('bet_outcome', views.bet_outcome, name='bet_outcome'),
+    path('outcome_page', views.outcome_page, name='outcome_page'),
 ]
 

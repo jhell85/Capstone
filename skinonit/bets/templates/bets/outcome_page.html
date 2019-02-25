@@ -1,0 +1,16 @@
+<H1>Your @ the outcome_page</H1>
+<table>
+    {% for row in rows %}
+    <td>{{row.name}}</td>
+    <td>{{row.description}}</td>
+    <td>{{row.id}}</td>
+    <td><form action="{% url 'bets:bet_outcome' %}" method="post">
+        {% csrf_token %}
+        <input type="radio" name="win" value="True">Win<br>
+        <input type="radio" name="win" value="False">Loss<br>
+        <input type="radio" name="win" value="None">Open<br> 
+        <button type="submit" name="bt_submit">SUBMIT</button>
+        <input type="hidden" name="bet_id" value={{row.id}}>
+        </form></td>
+    {% endfor %}    
+</table>
