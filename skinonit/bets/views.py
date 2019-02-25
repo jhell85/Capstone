@@ -37,31 +37,25 @@ def create_bet(request):
 
 def wager_bet(request):
     user = request.user.id
-    amount = request.POST['amount']
+    amount = request.POST['amount']#why does this come through as a string?
+    print('\n'*25, type(amount), '\n'*25)
     for_against = request.POST['for_against']
     bet = request.POST['bet'] 
-    
-    user_credits = UserProfile.objects.get(pk=user).credits
-
-    # user_credits = request.user.userprofile.credits #(why does this work what is it getting)
+    user_profile = UserProfile.objects.get(pk=user)
+    user_credits = user_profile.credits
+ # user_credits = request.user.userprofile.credits #(why does this work what is it getting)
     new_credits = (user_credits) - int(amount)
     
-    user_profile = UserProfile.objects.get(pk=user)
-    # user_profile = request.user.userprofile
-    # user_profile = UserProfile.objects.get(credits)
     user_profile.credits = new_credits
     user_profile.save()
-    print('\n'*25, user_profile, '\n'*25)
+    
 
     userbet = UserBet(user_id=user,ammount=amount, for_against=for_against, bet_id=bet)
     userbet.save() 
     
     url = reverse('bets:complete_page', kwargs={'bet_id': userbet.id})#why if bet_id changes to userbet_id it fails?
-    
-
     # if for_against != (True):
     #     return HttpResponseRedirect(reverse('bets:wager_bet'))
     # return HttpResponseRedirect(url)
-
     return HttpResponseRedirect(url)
 
