@@ -1,5 +1,21 @@
-<p3>Your at the bets index</p3>
-
+<h1>Your at the bets index</h1>
+<h2>Join a bet that's already in progress</h2>
+    <table>
+        {% for row in rows %}
+        <tr>
+        <td><b>{{row.name}}</b></td>
+        <td>Description:</td>
+        <td> {{row.description}}</td>
+        <td>{{row.id}}</td>
+        <td><form action="{% url 'bets:create_userbet' %}" method="post">
+            {% csrf_token %}
+            <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
+            <button type="submit" name="bt_submit">SUBMIT</button>
+            </form></td>
+        </tr>
+        {% endfor %}    
+    </table>
+<h3>Create a new bet</h3>
 <form action="{% url 'bets:create_bet' %}" method="post">
     {% csrf_token %}
     <input type="text" name="name" required placeholder="name your bet"/>

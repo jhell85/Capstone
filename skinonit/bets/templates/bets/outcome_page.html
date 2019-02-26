@@ -1,6 +1,7 @@
-<H1>Your @ the outcome_page</H1>
+<H1>Your @ the outcome_page Credits:{{user.userprofile.credits}}</H1>
 <table>
     {% for row in rows %}
+    <tr>
     <td>{{row.name}}</td>
     <td>{{row.description}}</td>
     <td>{{row.id}}</td>
@@ -8,9 +9,9 @@
         {% csrf_token %}
         <input type="radio" name="win" value="True">Win<br>
         <input type="radio" name="win" value="False">Loss<br>
-        <input type="radio" name="win" value="None">Open<br> 
         <button type="submit" name="bt_submit">SUBMIT</button>
-        <input type="hidden" name="bet_id" value={{row.id}}>
+        <input type="hidden" name="bet_id" value="{{row.id}}">
         </form></td>
+    </tr>
     {% endfor %}    
-</table>
+    <a href="{% url 'bets:index' %}">Bet index</a>

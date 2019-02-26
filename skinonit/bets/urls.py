@@ -10,5 +10,7 @@ urlpatterns = [
     path('complete_page/<int:bet_id>', views.complete_page, name='complete_page'),
     path('bet_outcome', views.bet_outcome, name='bet_outcome'),
     path('outcome_page', views.outcome_page, name='outcome_page'),
+    path('create_userbet', views.create_userbet, name='create_userbet'),
+    path('openbets_page', views.openbets_page, name='openbets_page'),
 ]
 
