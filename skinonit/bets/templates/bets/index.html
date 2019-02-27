@@ -1,19 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <style>
-        #log_out{
-            text-align: right;
-        }
-        .main_div{
-            display: flex;
-            flex-direction: row;
-        }
-    </style>
+   <link src="{% static 'bets/main.css' %}"/>
 </head>
 <body>    
     <a id="log_out" href="{% url 'users:logout_user' %}">logout</a>
-    <h1>Welcome to the custom bet creation page</h1>
+    <h1 id="header">Welcome to the custom bet creation page</h1>
     <a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
     
     <h2>Create a new bet:</h2>
