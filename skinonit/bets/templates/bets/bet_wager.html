@@ -1,9 +1,10 @@
-
-<h1>Your at the wager page {{user.username}}</h1>
+<a href="{% url 'users:logout_user' %}">logout</a>
+<h2>Wager your bet {{user.username}} you have {{user.userprofile.credits}} credits to bet with</h2>
 
 <div>
    <h3>{{bet.name}}</h3>
-   <div>{{bet.description}}-id{{bet.id}}</div>
+   <b>Description:</b>
+   <div>{{bet.description}}</div>
 </div>
 <form action="{% url 'bets:wager_bet' %}" method="post">
     {% csrf_token %}

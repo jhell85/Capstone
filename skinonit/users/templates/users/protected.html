@@ -1,4 +1,6 @@
+<a href="{% url 'users:logout_user' %}">logout</a>
 <h1>Welcome {{user.username}}!</h1>
-<h3>You're on a protected page!</h3>
-
 <div>Your Credits balance is {{user.userprofile.credits}}</div>
+<a href="{% url 'bets:index' %}">Create New Bet</a><br>
+<a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
+

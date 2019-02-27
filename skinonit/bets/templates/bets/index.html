@@ -1,24 +1,29 @@
-<h1>Your at the bets index</h1>
-<h2>Join a bet that's already in progress</h2>
-    <table>
-        {% for row in rows %}
-        <tr>
-        <td><b>{{row.name}}</b></td>
-        <td>Description:</td>
-        <td> {{row.description}}</td>
-        <td>{{row.id}}</td>
-        <td><form action="{% url 'bets:create_userbet' %}" method="post">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        #log_out{
+            text-align: right;
+        }
+        .main_div{
+            display: flex;
+            flex-direction: row;
+        }
+    </style>
+</head>
+<body>    
+    <a id="log_out" href="{% url 'users:logout_user' %}">logout</a>
+    <h1>Welcome to the custom bet creation page</h1>
+    <a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
+    
+    <h2>Create a new bet:</h2>
+    <div class="main_div">
+        <form action="{% url 'bets:create_bet' %}" method="post" class="create_bet">
             {% csrf_token %}
-            <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
-            <button type="submit" name="bt_submit">SUBMIT</button>
-            </form></td>
-        </tr>
-        {% endfor %}    
-    </table>
-<h3>Create a new bet</h3>
-<form action="{% url 'bets:create_bet' %}" method="post">
-    {% csrf_token %}
-    <input type="text" name="name" required placeholder="name your bet"/>
-    <textarea name="description" required placeholder="give a discription of your bet and clear paramiters of the bet to determin if the bet is a winner or not"></textarea>
-    <button type="submit">SUBMIT</button>
-</form>
+            <input type="text" name="name" required placeholder="name your bet"/>
+            <textarea name="description"  required placeholder="Description"></textarea><button type="submit">SUBMIT</button><br>
+            <b>give a description for your bet with clear paramiters to determine a winning bet</b>
+        </form>
+    </div>  
+</body>
+</html>

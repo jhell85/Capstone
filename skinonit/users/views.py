@@ -45,4 +45,6 @@ def login_user(request):
         return HttpResponseRedirect(next)
     return HttpResponseRedirect(reverse('users:index'))
 
-
+def logout_user(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('users:index'))

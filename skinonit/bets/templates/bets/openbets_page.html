@@ -1,0 +1,19 @@
+<a href="{% url 'users:logout_user' %}">logout</a>
+<h1>Join an open bet</h1>
+<a href="{% url 'bets:index' %}">Create New Bet</a>
+
+<table>
+    {% for row in rows %}
+    <tr>
+    <td><b>{{row.name}}</b></td>
+    <td>Description:</td>
+    <td> {{row.description}}</td>
+    <td>{{row.id}}</td>
+    <td><form action="{% url 'bets:create_userbet' %}" method="post">
+        {% csrf_token %}
+        <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
+        <button type="submit" name="bt_submit">SUBMIT</button>
+        </form></td>
+    </tr>
+    {% endfor %}    
+</table>
