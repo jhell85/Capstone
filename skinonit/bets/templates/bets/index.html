@@ -1,8 +1,9 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
+ 
+
 <head>
-   <link src="{% static 'bets/main.css' %}"/>
+    {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
 </head>
 <body>    
     <a id="log_out" href="{% url 'users:logout_user' %}">logout</a>
@@ -18,5 +19,3 @@
             <b>give a description for your bet with clear paramiters to determine a winning bet</b>
         </form>
     </div>  
-</body>
-</html>

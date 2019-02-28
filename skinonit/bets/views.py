@@ -105,3 +105,6 @@ def bet_outcome(request):
         # add the credits to the user profile and save it
 
     return HttpResponseRedirect(reverse('bets:outcome_page'))
+def scores_page(request):
+
+    return render(request, 'bets/scores_page.html')

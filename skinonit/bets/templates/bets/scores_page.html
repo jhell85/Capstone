@@ -1,0 +1,29 @@
+<h1>Scores_page</h1>
+{% load static %}
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="{% static 'bets/secrets.js' %}" type="text/javascript"></script>
+<script type="text/javascript">
+    let game_data=null
+    let game_array=[]
+    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate=20190228'
+    //let url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/2016-2017-regular/games.json'
+    //let url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json'
+    //let password = 'MYSPORTSFEEDS'
+    axios.get(url, {
+        headers: {
+            "Authorization": "Basic " + btoa(mysportsfeeds_api_key + ":" + mysportsfeeds_password)
+        }
+    }).then(function(response) {
+        console.log(response)
+        game_data= response.data.scoreboard.gameScore
+        console.log(game_data)
+        for(let i = 0; i< game_data.length; ++i){
+            game_array.push(game_data[i].game)
+
+        }
+        console.log(game_array)
+        
+    })
+
+</script>
