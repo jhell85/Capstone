@@ -1,29 +1,88 @@
-<h1>Scores_page</h1>
 {% load static %}
-
+<table id=outer_table>
+    <table id=game_table>  
+    </table>
+</table>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="{% static 'bets/secrets.js' %}" type="text/javascript"></script>
 <script type="text/javascript">
-    let game_data=null
-    let game_array=[]
-    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate=20190228'
-    //let url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/2016-2017-regular/games.json'
-    //let url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json'
-    //let password = 'MYSPORTSFEEDS'
+    let game_table = document.querySelector("#game_table")
+    let outer_table = document.querySelector("#outer_table")
+    function add0(n) {
+        return (n < 10)? '0'+n: n
+    }
+    function getToday(){
+        return (getCurrentDate(0))
+    }
+    function getYesterday(){
+        return(getCurrentDate(-1))
+    }
+    function getTomorrow(){
+        return(getCurrentDate(1))
+    }
+    function getCurrentDate(n) {
+        let d = new Date()
+        let month = add0(d.getMonth()+1)
+        let year = d.getFullYear()
+        let day = add0(n+(d.getDate()))
+        return year + '' + month + '' + day
+    }
+    function displayGames(games){
+        for(let i = 0; i< games.length; ++i){
+            let row = game_table.insertRow(0);
+            let row2 = game_table.insertRow(1)
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            let cell3 = row2.insertCell(0);
+            let cell4 = row2.insertCell(1);
+            cell1.innerHTML = `${games[i].awaycity} ${games[i].awayteam}`;
+            cell2.innerHTML = games[i].awayscore;
+            cell3.innerHTML = `${games[i].homecity} ${games[i].hometeam}`;
+            cell4.innerHTML = games[i].homescore;  
+            let outerrow = outer_table.insertRow(0);  
+            let outercell = outerrow.insertCell(0)
+            outercell.innerHTML = `${games[i].awaycity} ${games[i].awayteam}  ${games[i].awayscore} \n ${games[i].homecity} ${games[i].hometeam}  ${games[i].homescore}`        
+        }
+        return games
+    }
+    let date = getYesterday()
+    let game_array = []
+    
+    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+date
     axios.get(url, {
         headers: {
             "Authorization": "Basic " + btoa(mysportsfeeds_api_key + ":" + mysportsfeeds_password)
         }
     }).then(function(response) {
-        console.log(response)
-        game_data= response.data.scoreboard.gameScore
-        console.log(game_data)
-        for(let i = 0; i< game_data.length; ++i){
-            game_array.push(game_data[i].game)
-
+        let game_scores = response.data.scoreboard.gameScore
+        
+        for(let i = 0; i< game_scores.length; ++i){
+            let game_dict = {awayscore : '',                             
+                             awayteam : '',
+                             awaycity : '',
+                             homescore : '',
+                             hometeam : '',
+                             homecity : '',
+                            }
+            let awayscore = game_scores[i].awayScore
+            let awayteam = game_scores[i].game.awayTeam.Name
+            let awaycity = game_scores[i].game.awayTeam.City
+            let homescore = game_scores[i].homeScore
+            let hometeam = game_scores[i].game.homeTeam.Name
+            let homecity = game_scores[i].game.homeTeam.City
+            game_dict.awayscore = awayscore 
+            game_dict.awayteam = awayteam
+            game_dict.awaycity = awaycity
+            game_dict.homescore = homescore
+            game_dict.hometeam = hometeam
+            game_dict.homecity = homecity
+            game_array.push(game_dict)
         }
         console.log(game_array)
-        
+        displayGames(game_array)
     })
+    for(let i = 0; i< game_array.length; ++i){
+
+    }
 
 </script>
