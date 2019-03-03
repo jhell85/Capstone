@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from .models import Bet, UserBet
+from .models import Bet, UserBet, SportBet, UserSportBet
 
 admin.site.register(Bet)
 admin.site.register(UserBet)
+admin.site.register(SportBet)
+admin.site.register(UserSportBet)

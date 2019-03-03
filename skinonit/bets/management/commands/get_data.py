@@ -3,6 +3,7 @@ import requests
 import base64
 import json
 import datetime
+from bets.models import SportBet
 from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
 def getDate(n):
     x = datetime.datetime.now()
@@ -31,6 +32,22 @@ class Command(BaseCommand):
         )
         games = json.loads(r.text)['scoreboard']['gameScore']
         for game in games:
+            completed = True if (game['isCompleted']) == 'true' else False
+            sportbet = SportBet()
+            sportbet.homecity = game['game']['homeTeam']['City']
+            sportbet.hometeam = game['game']['homeTeam']['Name']
+            sportbet.awaycity = game['game']['awayTeam']['City']
+            sportbet.awayteam = game['game']['awayTeam']['Name']
+            sportbet.eventdate = game['game']['date']
+            sportbet.homescore = game['homeScore']
+            sportbet.awayscore = game['awayScore']
+            sportbet.completed = completed
+            sportbet.idofapi = game['game']['ID']
 
-            print(game['awayScore'])
+            print(sportbet.completed)
+            sportbet.save()
+            
+            
+            
+            print(sportbet.eventdate)
         
