@@ -47,13 +47,16 @@
     }
     let date = getYesterday()
     let game_array = []
-    
-    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+date
+    let url= 
+    // let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+date
     axios.get(url, {
         headers: {
             "Authorization": "Basic " + btoa(mysportsfeeds_api_key + ":" + mysportsfeeds_password)
         }
     }).then(function(response) {
+        console.log(response)
+        
+        
         let game_scores = response.data.scoreboard.gameScore
         
         for(let i = 0; i< game_scores.length; ++i){
@@ -78,7 +81,7 @@
             game_dict.homecity = homecity
             game_array.push(game_dict)
         }
-        console.log(game_array)
+       
         displayGames(game_array)
     })
     for(let i = 0; i< game_array.length; ++i){
