@@ -26,6 +26,11 @@ class SportBet(models.Model):
     awayscore = models.IntegerField(default=0)
     completed = models.BooleanField()
     idofapi = models.IntegerField(default=None)
+    def __str__(self):
+        if self.completed == True:
+            return f'{self.eventdate} {self.awayteam} {self.awayscore} @ {self.hometeam} {self.homescore}'
+        else:
+            return f'{self.eventdate} {self.awayteam} @ {self.hometeam} completed: {self.completed}'
 
 class UserSportBet(models.Model):
     userprofile = models.ForeignKey(UserProfile, on_delete=models.PROTECT)

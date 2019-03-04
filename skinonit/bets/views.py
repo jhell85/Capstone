@@ -17,8 +17,6 @@ def get_open_bets():
         rows.append(row)
     return rows
 
-# /bet/ - index, create a bet
-# /bet/<int:bet_id>/ - create a wager for bet with id bet_id
 
 @login_required
 def index(request):
