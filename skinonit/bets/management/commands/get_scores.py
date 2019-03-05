@@ -9,7 +9,7 @@ from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
 
 yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
 yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
-
+print(yesterday)
 class Command(BaseCommand):
     def handle(self, *args, **options):
         r = requests.get(  
@@ -19,7 +19,7 @@ class Command(BaseCommand):
             }
         )
         games = json.loads(r.text)['scoreboard']['gameScore']
-        # print(r.url)
+        
         bets = SportBet.objects.filter(eventdate= yesterday)
         for b in bets:
             print()

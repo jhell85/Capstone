@@ -1,10 +1,12 @@
 from django.shortcuts import render, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import UserBet, Bet
+from .models import UserBet, Bet, SportBet, UserSportBet
 from .models import UserProfile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
+from datetime import timedelta
 
 def get_open_bets():
     rows = []
@@ -17,10 +19,27 @@ def get_open_bets():
         rows.append(row)
     return rows
 
+def get_open_sportbets():
+    games = []
+    tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%Y-%m-%d')
+    tomorrow2 = (datetime.datetime.now() + timedelta(1)).strftime('%x')
+    for bet in SportBet.objects.filter(eventdate=tomorrow):
+        game = {
+            'id' : bet.id,
+            'homecity' : bet.homecity,
+            'hometeam' : bet.hometeam,
+            'awaycity' : bet.awaycity,
+            'awayteam' : bet.awayteam,
+        }
+        games.append(game)
+    return games
+
+def create_usersportbet(request):
+    bet_id = request.POST['sportbet_id']
+    return print(bet_id)
 
 @login_required
 def index(request):
-    
     return render(request, 'bets/index.html')
 
 @login_required
@@ -41,8 +60,10 @@ def outcome_page(request):
 
 @login_required
 def openbets_page(request):
+    tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%x')
     rows = get_open_bets()
-    return render(request, 'bets/openbets_page.html', {'rows': rows})
+    games = get_open_sportbets()
+    return render(request, 'bets/openbets_page.html', {'rows': rows, 'games': games, 'tomorrow': tomorrow})
 
 def create_userbet(request):
     bet_id = request.POST['bet_id']
