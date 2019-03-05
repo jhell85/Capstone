@@ -30,16 +30,16 @@
         {% for game in games %}
    
     <div id=gamediv>
-<form id="sport_bt" action="{% url 'bets:create_usersportbet' %}" method="post">
+<form  action="{% url 'bets:create_usersportbet' %}" method="post">
         {% csrf_token %}
 <input type="hidden" name="sportbet_id" value={{game.id}}>
-<button  type="submit">Select Game</button>
-</form>  
 <pre>         
   {{game.awaycity}} {{game.awayteam}}   
   at
   {{game.homecity}} {{game.hometeam}}  
-        </pre>
+</pre>
+        <button id="sport_bt" type="submit">Select Game</button>
+</form>
     </div>
         {% endfor %}
 

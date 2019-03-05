@@ -35,5 +35,5 @@ class SportBet(models.Model):
 class UserSportBet(models.Model):
     userprofile = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
     sportbet = models.ForeignKey(SportBet, on_delete=models.PROTECT)
-    home_away = models.BooleanField()
-    ammount = models.IntegerField()
+    home = models.BooleanField()
+    amount = models.IntegerField()

@@ -29,3 +29,7 @@ class Command(BaseCommand):
                 print('   ' + api['game']['ID'])
                 if int(api['game']['ID']) == int(b.idofapi):
                     print('match')
+                    b.awayscore = api['awayScore']
+                    b.homescore = api['homeScore']
+                    b.completed = True
+                    b.save()

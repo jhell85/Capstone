@@ -31,12 +31,21 @@ def get_open_sportbets():
             'awaycity' : bet.awaycity,
             'awayteam' : bet.awayteam,
         }
+        print(game['id'])
         games.append(game)
     return games
 
 def create_usersportbet(request):
     bet_id = request.POST['sportbet_id']
-    return print(bet_id)
+    print(10*'-')
+    print(bet_id)
+    print(10*'-')
+    url = reverse('bets:sportwager_page', kwargs={'bet_id': bet_id})
+    return HttpResponseRedirect(url)
+
+def sportwager_page(request, bet_id):
+    bet = SportBet.objects.get(id=bet_id)
+    return render(request, 'bets/sportbet_wager.html',{'bet': bet})
 
 @login_required
 def index(request):
@@ -74,16 +83,31 @@ def create_bet(request):
     name = request.POST['name']
     description = request.POST['description']
     bet = Bet(name=name, description=description, win=None)
-    
     bet.save()
     # change to httpresponseredirect, make another view to render the template
     # return render(request, 'bets/bet_wager.html', {'bet': bet})
     url = reverse('bets:wager_page', kwargs={'bet_id': bet.id})
     return HttpResponseRedirect(url)
 
+def sportwager_bet(request):
+    amount = int(request.POST['amount'])
+    home = request.POST['home']
+    bet = request.POST['bet']
+    user_profile = request.user.userprofile
+    user_profile.credits -= amount
+    
+
+    user_profile.save()
+    userbet = UserSportBet(userprofile=user_profile, amount=amount, home=home, sportbet_id=bet)
+  
+
+    userbet.save() 
+    url = reverse('bets:complete_page', kwargs={'bet_id': userbet.id})
+    return HttpResponseRedirect(url)
+
+
 def wager_bet(request):
     amount = int(request.POST['amount'])
-    
     for_against = request.POST['for_against']
     bet = request.POST['bet']
 
@@ -93,12 +117,6 @@ def wager_bet(request):
     user_profile.save()
     print('\n'*25, user_profile, '\n'*25)
 
-    # user_credits = user_profile.credits
-    ## user_credits = request.user.userprofile.credits #(why does this work what is it getting)
-    # new_credits = (user_credits) - int(amount)
-    # user_profile.credits = new_credits
-    #user_profile.save()
-    
 
     userbet = UserBet(userprofile=user_profile, amount=amount, for_against=for_against, bet_id=bet)
     userbet.save() 

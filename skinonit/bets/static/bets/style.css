@@ -1,9 +1,7 @@
 #header {
     color: green;
 }
-.gametable{
-    border: 2px solid blue;
-}
+
 .container{
     display: flex;
    flex-direction: row;
@@ -11,18 +9,22 @@
    align-content: center;
    
 }
+
+.container > div {
+    width:200px;
+    height:160px;
+}
 .columncontainer{
     display: flex;
     flex-direction: column;
     align-content: center;
 }
 #gamediv{
-    border: 1px solid black;
+    border: 3px solid rgba(26, 121, 7, 0.938);
     margin: 2px;
 }
 #sport_bt{
     margin: auto;
     text-align: center;
-    padding: 10px;
 
 }
