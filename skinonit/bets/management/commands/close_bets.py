@@ -6,6 +6,9 @@ import datetime
 from datetime import timedelta
 from bets.models import SportBet, UserSportBet
 
-
+class Command(BaseCommand):
+    def handle(self, *args, **options):
+        for bet in SportBet.objects.filter(completed=False):
+            
 
 

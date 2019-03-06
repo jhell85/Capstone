@@ -21,15 +21,35 @@ class Command(BaseCommand):
         games = json.loads(r.text)['scoreboard']['gameScore']
         
         bets = SportBet.objects.filter(eventdate= yesterday)
-        for b in bets:
+        for b in bets: # going through all the games from yesterday in my data base
             print()
             print("+++++")
             print(b.idofapi)
-            for api in games:
+            for api in games: # going through all the games for yesterday from the API
                 print('   ' + api['game']['ID'])
-                if int(api['game']['ID']) == int(b.idofapi):
+                if int(api['game']['ID']) == int(b.idofapi): # finding a match for the API and my data base
                     print('match')
                     b.awayscore = api['awayScore']
                     b.homescore = api['homeScore']
                     b.completed = True
-                    b.save()
+                    b.save() # updating the scores in the data base with the scores from the API
+                    for userbet in b.usersportbet_set.all(): #getting all the usersbets that are asociated the sportbet
+                        print("whhhhhaaaaatttt")     
+                        print(userbet.userprofile.credits)
+                        homescore = None #setting homescore to true if the home team won else false
+                        if b.homescore > b.awayscore:
+                            homescore = True
+                        else:
+                            homescore = False
+                        print(homescore)
+                        #if homescore is true and the user picked home then pay out the user or awayteam won and user picked away pay out the user
+                        if homescore == userbet.home:
+                            userbet.userprofile.credits += (userbet.amount*2)
+                            userbet.save()
+                            print(userbet.userprofile.credits)
+
+
+
+
+                        
+

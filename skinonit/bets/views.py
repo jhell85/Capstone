@@ -95,12 +95,8 @@ def sportwager_bet(request):
     bet = request.POST['bet']
     user_profile = request.user.userprofile
     user_profile.credits -= amount
-    
-
     user_profile.save()
     userbet = UserSportBet(userprofile=user_profile, amount=amount, home=home, sportbet_id=bet)
-  
-
     userbet.save() 
     url = reverse('bets:complete_page', kwargs={'bet_id': userbet.id})
     return HttpResponseRedirect(url)
@@ -110,17 +106,13 @@ def wager_bet(request):
     amount = int(request.POST['amount'])
     for_against = request.POST['for_against']
     bet = request.POST['bet']
-
     # update the user's credits
     user_profile = request.user.userprofile
     user_profile.credits -= amount
     user_profile.save()
     print('\n'*25, user_profile, '\n'*25)
-
-
     userbet = UserBet(userprofile=user_profile, amount=amount, for_against=for_against, bet_id=bet)
     userbet.save() 
-    
     url = reverse('bets:complete_page', kwargs={'bet_id': userbet.id})#why if bet_id changes to userbet_id it fails?
     #     return HttpResponseRedirect(reverse('bets:wager_bet'))
     # return HttpResponseRedirect(url)
