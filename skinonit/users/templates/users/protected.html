@@ -1,6 +1,25 @@
-<a href="{% url 'users:logout_user' %}">logout</a>
-<h1>Welcome {{user.username}}!</h1>
-<div>Your Credits balance is {{user.userprofile.credits}}</div>
-<a href="{% url 'bets:index' %}">Create New Bet</a><br>
-<a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
+<head>
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'users/index.css' %}">
+</head>
 
+<body style="background: darkorange;">
+    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <div id="protectedpage">
+        <h2>Welcome {{user.username}} You have {{user.userprofile.credits}} Skin Bucks</h2>
+        <div></div>
+
+        <div class="imagelinks">
+            <div class="images">
+                Join a live bet
+                <a href="{% url 'bets:openbets_page' %}">
+                <img src="{% static "users/BetLive.jpg" %}" alt="BetLive" width="300"/></a>
+            </div>
+            <div class="images">
+                Create your own bet
+                <a href="{% url 'bets:index' %}">
+                <img src="{% static "users/betslip.jpg" %}" alt="BetLive" width="250"/></a>
+            </div>
+        </div>
+    </div>
+</body>

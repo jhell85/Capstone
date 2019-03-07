@@ -19,11 +19,11 @@
     flex-direction: column;
     align-content: center;
 }
-#gamediv{
+.gamediv{
     border: 3px solid rgba(26, 121, 7, 0.938);
     margin: 2px;
 }
-#sport_bt{
+.sport_bt{
     margin: auto;
     text-align: center;
 

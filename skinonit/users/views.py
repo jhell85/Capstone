@@ -36,15 +36,18 @@ def protected(request):
 def login_user(request):
     username = request.POST['username']
     password = request.POST['password']
-    next = request.POST['next']
+    # next = request.POST['next']
     user = authenticate(request, username=username, password=password)
     if user is not None:
         login(request, user)
-        if next == '':
-            return HttpResponseRedirect(reverse('users:protected'))
-        return HttpResponseRedirect(next)
-    return HttpResponseRedirect(reverse('users:index'))
+        # if next == '':
+        #     return HttpResponseRedirect(reverse('users:protected'))
+        # return HttpResponseRedirect(next)
+    return HttpResponseRedirect(reverse('users:protected'))
 
 def logout_user(request):
     logout(request)
     return HttpResponseRedirect(reverse('users:index'))
+
+def login_page(request):
+    return render(request, 'users/login_page.html')

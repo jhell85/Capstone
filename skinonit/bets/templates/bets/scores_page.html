@@ -47,8 +47,8 @@
     }
     let date = getYesterday()
     let game_array = []
-    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json'
-    // let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+date
+    // let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json'
+    let url= 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+date
     axios.get(url, {
         headers: {
             "Authorization": "Basic " + btoa(mysportsfeeds_api_key + ":" + mysportsfeeds_password)
@@ -56,37 +56,39 @@
     }).then(function(response) {
         games = response.data
         console.log(games)
-    })
+    
 
-    //     let game_scores = response.data.scoreboard.gameScore
+        let game_scores = response.data.scoreboard.gameScore
         
-    //     for(let i = 0; i< game_scores.length; ++i){
-    //         let game_dict = {awayscore : '',                             
-    //                          awayteam : '',
-    //                          awaycity : '',
-    //                          homescore : '',
-    //                          hometeam : '',
-    //                          homecity : '',
-    //                         }
-    //         let awayscore = game_scores[i].awayScore
-    //         let awayteam = game_scores[i].game.awayTeam.Name
-    //         let awaycity = game_scores[i].game.awayTeam.City
-    //         let homescore = game_scores[i].homeScore
-    //         let hometeam = game_scores[i].game.homeTeam.Name
-    //         let homecity = game_scores[i].game.homeTeam.City
-    //         game_dict.awayscore = awayscore 
-    //         game_dict.awayteam = awayteam
-    //         game_dict.awaycity = awaycity
-    //         game_dict.homescore = homescore
-    //         game_dict.hometeam = hometeam
-    //         game_dict.homecity = homecity
-    //         game_array.push(game_dict)
-    //     }
+        for(let i = 0; i< game_scores.length; ++i){
+            let game_dict = {awayscore : '',                             
+                             awayteam : '',
+                             awaycity : '',
+                             homescore : '',
+                             hometeam : '',
+                             homecity : '',
+                            }
+            let awayscore = game_scores[i].awayScore
+            let awayteam = game_scores[i].game.awayTeam.Name
+            let awaycity = game_scores[i].game.awayTeam.City
+            let homescore = game_scores[i].homeScore
+            let hometeam = game_scores[i].game.homeTeam.Name
+            let homecity = game_scores[i].game.homeTeam.City
+            game_dict.awayscore = awayscore 
+            game_dict.awayteam = awayteam
+            game_dict.awaycity = awaycity
+            game_dict.homescore = homescore
+            game_dict.hometeam = hometeam
+            game_dict.homecity = homecity
+            game_array.push(game_dict)
+        }
        
-    //     displayGames(game_array)
-    // })
-    // for(let i = 0; i< game_array.length; ++i){
+        displayGames(game_array)
+    })
+    
+    
+    for(let i = 0; i< game_array.length; ++i){
 
-    // }
+    }
 
 </script>

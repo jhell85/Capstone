@@ -5,30 +5,12 @@ import json
 import datetime
 from bets.models import SportBet
 from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
-def getDate(n):
-    x = datetime.datetime.now()
-    day = add0(int(x.strftime("%d"))+n)
-    month = x.strftime("%m")
-    year = x.strftime("%Y")
-    return year +''+ month +''+ str(day)
 
-def getYesterday():
-    return getDate(-1)
-
-def add0(n):
-    if n < 10 :
-        return "0" + str(n)
-    else :
-        return n
-
-def getDate2():
-    x = datetime.datetime.now()
-    day = str(add0((int(x.strftime("%d")))-1))
-    month = x.strftime("%m")
-    year = x.strftime("%Y")
-    return year +'-'+ month +'-'+ day
-    
-date = getYesterday()
+'''
+this program is made to grab the data from the api that includes the information of all the games 
+played for the season and bring it into the models data base 
+'''
+date = Yesterday2
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -43,7 +25,7 @@ class Command(BaseCommand):
         
 
         for game in games:
-            if game['date'] >= getDate2():
+            if game['date'] >= yesterday:
                 print(getDate2())
                 sportbet = SportBet()
                 sportbet.homecity = game['homeTeam']['City']

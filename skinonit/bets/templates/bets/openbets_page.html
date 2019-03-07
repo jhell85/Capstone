@@ -2,47 +2,45 @@
         {% load static %}
         <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
 </head>
-<a href="{% url 'users:logout_user' %}">logout</a>
-<h1>Join an open bet</h1>
-<a href="{% url 'bets:index' %}">Create New Bet</a>
+<body>
+    <a href="{% url 'users:logout_user' %}">logout</a>
+    <h1>Join an open bet</h1>
+    <a href="{% url 'bets:index' %}">Create New Bet</a>
 
-<table>
-    {% for row in rows %}
-    <tr>
-        <td><b>{{row.name}}</b></td>
-    </tr>
-        <td>Description:</td>
-        <td> {{row.description}}</td>
-    </tr>
-        <td>{{row.id}}</td>
-        <td><form action="{% url 'bets:create_userbet' %}" method="post">
-        {% csrf_token %}
-        <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
-        <button type="submit" name="bt_submit">SUBMIT</button>
-        </form></td>
-    </tr>
-    {% endfor %}    
-</table >
+    <table>
+        {% for row in rows %}
+        <tr>
+            <td><b>{{row.name}}</b></td>
+        </tr>
+            <td>Description:</td>
+            <td> {{row.description}}</td>
+        </tr>
+            <td>{{row.id}}</td>
+            <td><form action="{% url 'bets:create_userbet' %}" method="post">
+            {% csrf_token %}
+            <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
+            <button type="submit" name="bt_submit">SUBMIT</button>
+            </form></td>
+        </tr>
+        {% endfor %}    
+    </table >
 
 
- <h2>{{tomorrow}}</h2>
-<div class=container>
+    <h2>Games for {{tomorrow}}</h2>
+    <div class="container">
         {% for game in games %}
-   
-    <div id=gamediv>
-<form  action="{% url 'bets:create_usersportbet' %}" method="post">
-        {% csrf_token %}
-<input type="hidden" name="sportbet_id" value={{game.id}}>
-<pre>         
-  {{game.awaycity}} {{game.awayteam}}   
-  at
-  {{game.homecity}} {{game.hometeam}}  
-</pre>
-        <button id="sport_bt" type="submit">Select Game</button>
-</form>
-    </div>
+        <div class="gamediv">
+            <form  action="{% url 'bets:create_usersportbet' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="sportbet_id" value={{game.id}}>
+                <pre>         
+ {{game.awaycity}} {{game.awayteam}}   
+ at
+ {{game.homecity}} {{game.hometeam}}  
+                </pre>
+                <button class="sport_bt" type="submit">Select Game</button>
+            </form>
+        </div>
         {% endfor %}
-
-</div>
-
-  
+    </div>
+</body>

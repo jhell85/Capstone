@@ -129,11 +129,9 @@ def bet_outcome(request):
         if user_bet.for_against == bet.win:
             user_bet.userprofile.credits += user_bet.amount*2
             user_bet.userprofile.save() 
-
         # if the bet's 'win' equals the userbet's 'win' pay out the userprofile
         # add the credits to the user profile and save it
-
     return HttpResponseRedirect(reverse('bets:outcome_page'))
-def scores_page(request):
 
+def scores_page(request):
     return render(request, 'bets/scores_page.html')

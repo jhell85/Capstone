@@ -6,9 +6,15 @@ import datetime
 from datetime import timedelta
 from bets.models import SportBet
 from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
+'''
+This program is made to grab the scores of the games that happened yesterday update the games in the model's
+data base then then find which team won and compares that to each userbet that was created from the game 
+if the player picked the winning team it pays out the credits to the user's profile,
+if the user picked the incorrect team it does nothing
+'''
 
-yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
-yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
+yesterday = (datetime.datetime.now() - timedelta(2)).strftime('%Y-%m-%d')
+yesterday2 = (datetime.datetime.now() - timedelta(2)).strftime('%Y' + '%m' + '%d')
 print(yesterday)
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -46,6 +52,7 @@ class Command(BaseCommand):
                         if homescore == userbet.home:
                             userbet.userprofile.credits += (userbet.amount*2)
                             userbet.save()
+                            userbet.userprofile.save()
                             print(userbet.userprofile.credits)
 
 
