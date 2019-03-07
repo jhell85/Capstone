@@ -1,16 +1,19 @@
-<h3>NBA Sport Bet</h3>
 
-<form action="{% url 'bets:sportwager_bet' %}" method="post">
-        {% csrf_token %}
-    <div>{{bet.eventdate}}</div>
-    <div>{{bet.awaycity}} {{bet.awayteam}}<input id="message" type="radio" name="home" value="False"></div>
-    <div>at</div>
-    <div>{{bet.homecity}} {{bet.hometeam}}<input id="message" type="radio" name="home" value="True"></div> 
+<body>
+    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <h3>NBA Sport Bet</h3>
 
-    <input type="number" name="amount" id="amount" placeholder="wager amount">
-    <input type="submit" onclick="return confirm('Submit bet?')" />
-    <input type="hidden" name="bet" value={{bet.id}}>
-</form>
-<div>odds for this bet are a 1:1 payout</div>
+    <form action="{% url 'bets:sportwager_bet' %}" method="post">
+            {% csrf_token %}
+        <div>{{bet.eventdate}}</div>
+        <div>{{bet.awaycity}} {{bet.awayteam}}<input id="message" type="radio" name="home" value="False"></div>
+        <div>at</div>
+        <div>{{bet.homecity}} {{bet.hometeam}}<input id="message" type="radio" name="home" value="True"></div> 
 
+        <input type="number" name="amount" id="amount" placeholder="wager amount">
+        <input type="submit" onclick="return confirm('Submit bet?')" />
+        <input type="hidden" name="bet" value={{bet.id}}>
+    </form>
+    <div>odds for this bet are a 1:1 payout</div>
+</body>
         

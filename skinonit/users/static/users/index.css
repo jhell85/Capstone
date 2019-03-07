@@ -20,6 +20,8 @@
     position: absolute;
     right: 0px;
     padding: 8px;
+    font-size: large;
+
 }
 #protectedpage{
     display: flex;

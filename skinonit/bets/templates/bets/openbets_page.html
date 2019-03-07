@@ -1,33 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <a href="{% url 'users:logout_user' %}">logout</a>
+    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
     <h1>Join an open bet</h1>
     <a href="{% url 'bets:index' %}">Create New Bet</a>
 
-    <table>
-        {% for row in rows %}
-        <tr>
-            <td><b>{{row.name}}</b></td>
-        </tr>
-            <td>Description:</td>
-            <td> {{row.description}}</td>
-        </tr>
-            <td>{{row.id}}</td>
-            <td><form action="{% url 'bets:create_userbet' %}" method="post">
-            {% csrf_token %}
-            <input type="checkbox" name="bet_id" value="{{row.id}}">Join this bet
-            <button type="submit" name="bt_submit">SUBMIT</button>
-            </form></td>
-        </tr>
-        {% endfor %}    
-    </table >
-
-
     <h2>Games for {{tomorrow}}</h2>
-    <div class="container">
+    <div class="my_container">
         {% for game in games %}
         <div class="gamediv">
             <form  action="{% url 'bets:create_usersportbet' %}" method="post">
@@ -43,4 +31,30 @@
         </div>
         {% endfor %}
     </div>
+
+    <h3 style="text-align:center;">Text Bets</h3>
+    
+    <div class="columncontainer"> 
+        {% for row in rows%}
+        <form action="{% url 'bets:create_userbet' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" name="bet_id" type="hidden" value="{{row.id}}">
+            <a href="#" title="{{row.name}}" data-toggle="popover" data-trigger="hover" data-content="{{row.description}}">
+            <b type="submit">{{row.name}}</b></a>
+            </button>
+           
+
+        </form>  
+        {% endfor %}       
+    </div>
+  
+    <div class="center">
+        <img src="{% static "bets/footer.png" %}" alt="footer" />
+    </div>
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover();   
+    });
+</script>
 </body>
+</html>

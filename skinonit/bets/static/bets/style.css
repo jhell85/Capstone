@@ -2,7 +2,7 @@
     color: green;
 }
 
-.container{
+.my_container{
     display: flex;
    flex-direction: row;
    flex-wrap: wrap;
@@ -10,14 +10,28 @@
    
 }
 
-.container > div {
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
+.my_container > div {
     width:200px;
     height:160px;
 }
 .columncontainer{
     display: flex;
-    flex-direction: column;
-    align-content: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap
+}
+.logout{
+    position: absolute;
+    right: 0px;
+    padding: 8px;
+    font-size: large;
 }
 .gamediv{
     border: 3px solid rgba(26, 121, 7, 0.938);
@@ -27,4 +41,9 @@
     margin: auto;
     text-align: center;
 
+}
+.textbets {
+    border: 3px solid darkorange;
+    margin: 3px;
+    padding: 8px;
 }
