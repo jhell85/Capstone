@@ -8,32 +8,47 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <style>
+       
+        pre {
+            padding: 0 !important;
+            margin: 0 !important;
+            background-color: transparent !important;
+            border: none !important;
+        }
+        button {
+            border-radius: 10px;
+            outline: none;
+            background-color:  darkorange
+        }
+    </style>
 </head>
-<body>
+<body class="body">
     <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
-    <h1>Join an open bet</h1>
-    <a href="{% url 'bets:index' %}">Create New Bet</a>
-
-    <h2>Games for {{tomorrow}}</h2>
-    <div class="my_container">
+    <h1 class="textcolor">NBA Games</h1>
+    
+    <div class="columncontainer">
         {% for game in games %}
-        <div class="gamediv">
-            <form  action="{% url 'bets:create_usersportbet' %}" method="post">
+        
+            <form class="gameform" action="{% url 'bets:create_usersportbet' %}" method="post">
                 {% csrf_token %}
                 <input type="hidden" name="sportbet_id" value={{game.id}}>
-                <pre>         
- {{game.awaycity}} {{game.awayteam}}   
- at
- {{game.homecity}} {{game.hometeam}}  
-                </pre>
-                <button class="sport_bt" type="submit">Select Game</button>
+                <button class="sport_bt" type="submit">
+                    <div class="gameholder"> 
+                        <div>{{game.date}}</div>        
+                        <div>{{game.awaycity}} {{game.awayteam}}</div>   
+                        <div>at</div>
+                        <div>{{game.homecity}} {{game.hometeam}}</div> 
+                    </div>
+                </button>
             </form>
-        </div>
+        
         {% endfor %}
     </div>
-
-    <h3 style="text-align:center;">Text Bets</h3>
-    
+    <div class="textheader">
+        <a href="{% url 'bets:index' %}">Create New Bet</a>
+        <h3 style="text-align:center;" class="textcolor">Text Bets</h3>
+    </div>
     <div class="columncontainer"> 
         {% for row in rows%}
         <form action="{% url 'bets:create_userbet' %}" method="post">
@@ -49,7 +64,7 @@
     </div>
   
     <div class="center">
-        <img src="{% static "bets/footer.png" %}" alt="footer" />
+        <img class="img-responsive" src="{% static "bets/footer.png" %}" alt="footer" />
     </div>
 <script>
     $(document).ready(function(){

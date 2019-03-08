@@ -18,21 +18,34 @@ def get_open_bets():
         }
         rows.append(row)
     return rows
+def get_date(n):
+   return (datetime.datetime.now() + timedelta(n)).strftime('%Y-%m-%d')
+
+def get_date_text(n):
+    return (datetime.datetime.now() + timedelta(n)).strftime('%a %b %d')
 
 def get_open_sportbets():
     games = []
-    tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%Y-%m-%d')
-    tomorrow2 = (datetime.datetime.now() + timedelta(1)).strftime('%x')
-    for bet in SportBet.objects.filter(eventdate=tomorrow):
-        game = {
-            'id' : bet.id,
-            'homecity' : bet.homecity,
-            'hometeam' : bet.hometeam,
-            'awaycity' : bet.awaycity,
-            'awayteam' : bet.awayteam,
-        }
-        print(game['id'])
-        games.append(game)
+    # tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%Y-%m-%d')
+    # tomorrow2 = (datetime.datetime.now() + timedelta(1)).strftime('%a %b %d')
+    
+    for x in range(1, 4):
+        print('-=-=-=-=-=-=-=-=-=-=-=-=-=')
+        print(x)
+        date = get_date(x)
+        text_date = get_date_text(x)
+        for bet in SportBet.objects.filter(eventdate=date):
+
+            game = {
+                'date' : text_date,
+                'id' : bet.id,
+                'homecity' : bet.homecity,
+                'hometeam' : bet.hometeam,
+                'awaycity' : bet.awaycity,
+                'awayteam' : bet.awayteam,
+            }
+            games.append(game)
+            x =+ 1
     return games
 
 def create_usersportbet(request):

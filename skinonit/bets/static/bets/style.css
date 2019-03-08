@@ -2,20 +2,29 @@
     color: green;
 }
 
-.my_container{
-    display: flex;
-   flex-direction: row;
-   flex-wrap: wrap;
-   align-content: center;
-   
+.gameform{
+    margin: 3px;
 }
-
-
+.body {
+    padding: 40px;
+    background-color: rgb(20, 20, 160)
+}
 .center {
     margin: auto;
     width: 50%;
     padding: 10px;
   }
+.textcolor{
+    color:navajowhite
+}
+.gameholder{
+    display: flex;
+    flex-direction: column;
+}
+.textheader{
+    display:flex;
+    flex-direction: column;
+}
 .my_container > div {
     width:200px;
     height:160px;
@@ -32,12 +41,15 @@
     right: 0px;
     padding: 8px;
     font-size: large;
+    color: yellow
 }
 .gamediv{
     border: 3px solid rgba(26, 121, 7, 0.938);
     margin: 2px;
 }
 .sport_bt{
+    width:150px;
+    height:115px;
     margin: auto;
     text-align: center;
 
