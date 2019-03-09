@@ -7,7 +7,8 @@
 }
 .body {
     padding: 40px;
-    background-color: rgb(20, 20, 160)
+    background-color: rgb(20, 20, 160);
+    color:navajowhite;
 }
 .center {
     margin: auto;
@@ -20,6 +21,21 @@
 .gameholder{
     display: flex;
     flex-direction: column;
+}
+.betslipheader{
+    display: flex;
+    align-items: flex-start;
+    background-color: dimgrey;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.betslipfooter{
+    display: flex;
+    align-items: flex-start;
+    background-color: dimgrey;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding : 10px;
 }
 .textheader{
     display:flex;

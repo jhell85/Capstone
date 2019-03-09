@@ -1,19 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
 
-<body>
-    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
-    <h3>NBA Sport Bet</h3>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <style>
+        .logoutdiv{
+            padding-bottom: 50px;
+            display: flex;
+            align-items: flex-end;
+        }
+        .betform{
+            display: flex;
+            flex-direction: column;
+            background-color: slategray;
+        }
+        .radiobt{
+            margin: 8px !important;
+        }
+        .betformdiv{
+            padding-left:5px;
+        }
+        #amount{
+            margin: 5px;
+        }
 
-    <form action="{% url 'bets:sportwager_bet' %}" method="post">
-            {% csrf_token %}
-        <div>{{bet.eventdate}}</div>
-        <div>{{bet.awaycity}} {{bet.awayteam}}<input id="message" type="radio" name="home" value="False"></div>
-        <div>at</div>
-        <div>{{bet.homecity}} {{bet.hometeam}}<input id="message" type="radio" name="home" value="True"></div> 
+    </style>
+</head>
 
-        <input type="number" name="amount" id="amount" placeholder="wager amount">
-        <input type="submit" onclick="return confirm('Submit bet?')" />
-        <input type="hidden" name="bet" value={{bet.id}}>
-    </form>
-    <div>odds for this bet are a 1:1 payout</div>
+<body class="body">
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    </div>
+    <div class="betslipheader">
+        <h2 style="padding:5px">NBA Sport Bet</h2>
+    </div>
+    <div  class="betform">
+        <form action="{% url 'bets:sportwager_bet' %}" method="post">
+                {% csrf_token %}
+            <h3 style="padding:5px">{{bet.eventdate}}</h3>
+            <h2 class="betformdiv">{{bet.awaycity}} {{bet.awayteam}}<input class="radiobt" id="awayradio" type="radio" name="home" value="False"></h2>
+            <h3 class="betformdiv">at</h3>
+            <h2 class="betformdiv">{{bet.homecity}} {{bet.hometeam}}<input class="radiobt" id="homeradio" type="radio" name="home" value="True"></h2> 
+            <input class="betformdiv" type="number" name="amount" id="amount" placeholder="wager amount">
+            <input class="betformdiv" type="submit" id="bt_submit"/>
+            <input type="hidden" name="bet" value={{bet.id}}>
+        </form>
+    </div>
+    <h4 class="betformdiv betslipfooter">odds for this bet are a 1:1 payout</h4>
+    <script type="text/javascript">
+        let homeradio = document.querySelector("#homeradio")
+        let awayradio = document.querySelector("#awayradio")
+        let bt_submit = document.querySelector('#bt_submit')
+        let amount = document.querySelector('#amount')
+        bt_submit.onclick = function() {
+           let teamselection = `{{bet.awaycity}} {{bet.awayteam}}`
+           let payout = (amount.value)*2 
+           console.log(payout)
+            if (amount.value <= 0){
+                alert(`specify amount`)
+                return false
+            } 
+            // if (!homeradio.checked && !awayradio.checked){
+            //     alert(`select {{bet.awayteam}} or {{bet.hometeam}}`)
+            //     return false
+            // }
+            if (homeradio.checked) {
+                teamselection = `{{bet.homecity}} {{bet.hometeam}}`
+                return confirm(`betting on the ${teamselection} for ${amount.value} credits \nfor a payout of ${payout} credits`);
+            } else if (awayradio.checked) {
+                return confirm(`betting on the ${teamselection} for ${amount.value} credits \nfor a payout of ${payout} credits `);
+            } else {
+                alert(`select a team `);
+                return false;
+            }
+        }
+    </script>
 </body>
         

@@ -71,7 +71,7 @@ def wager_page(request, bet_id):
 
 @login_required
 def complete_page(request, bet_id):
-    user_bet = UserBet.objects.get(id=bet_id)
+    user_bet = UserSportBet.objects.get(id=bet_id)
     print('\n'*25, user_bet)
     return render(request, 'bets/complete_page.html',{'user_bet': user_bet})
 
