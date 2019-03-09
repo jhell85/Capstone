@@ -75,3 +75,19 @@
     margin: 3px;
     padding: 8px;
 }
+.logoutdiv{
+    padding-bottom: 50px;
+    display: flex;
+    align-items: flex-end;
+}
+.betform{
+    display: flex;
+    flex-direction: column;
+    background-color: slategray;
+}
+.radiobt{
+    margin: 8px !important;
+}
+.betformdiv{
+    padding-left:5px;
+}

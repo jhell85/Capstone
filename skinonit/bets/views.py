@@ -30,8 +30,7 @@ def get_open_sportbets():
     # tomorrow2 = (datetime.datetime.now() + timedelta(1)).strftime('%a %b %d')
     
     for x in range(1, 4):
-        print('-=-=-=-=-=-=-=-=-=-=-=-=-=')
-        print(x)
+        
         date = get_date(x)
         text_date = get_date_text(x)
         for bet in SportBet.objects.filter(eventdate=date):

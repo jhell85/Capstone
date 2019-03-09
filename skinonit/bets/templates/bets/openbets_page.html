@@ -21,6 +21,9 @@
             outline: none;
             background-color:  darkorange
         }
+        .popover{
+            color:black
+        }
     </style>
 </head>
 <body class="body">
@@ -54,7 +57,7 @@
         <form action="{% url 'bets:create_userbet' %}" method="post">
             {% csrf_token %}
             <button type="submit" name="bet_id" type="hidden" value="{{row.id}}">
-            <a href="#" title="{{row.name}}" data-toggle="popover" data-trigger="hover" data-content="{{row.description}}">
+            <a id="popover" href="#" title="{{row.name}}" data-toggle="popover" data-trigger="hover" data-content="{{row.description}}">
             <b type="submit">{{row.name}}</b></a>
             </button>
            
@@ -69,6 +72,9 @@
 <script>
     $(document).ready(function(){
         $('[data-toggle="popover"]').popover();   
+    })
+    .on("hover", function(){
+        $('.popover').addClass($(this).data("popover"));
     });
 </script>
 </body>
