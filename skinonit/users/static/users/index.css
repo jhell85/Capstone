@@ -23,6 +23,16 @@
     font-size: large;
     color: yellow
 }
+.body {
+    padding: 40px;
+    background-color: rgb(20, 20, 160);
+    color:navajowhite;
+}
+.orange_container{
+    background-color: darkorange;
+    border-color: black;
+
+}
 #protectedpage{
     display: flex;
     flex-direction: column;

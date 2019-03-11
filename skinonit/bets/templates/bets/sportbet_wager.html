@@ -13,18 +13,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
     <style>
 
-        #bt_submit{
-            background-color:darkorange;
-            color:black;
-            border-radius: 5px
-            
-        }    
-        #amount{
-            margin: 5px;
-            color:black;
-            border-radius: 5px;
-           
-        }
+
 
     </style>
 </head>
@@ -34,9 +23,9 @@
         <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
     </div>
     <div class="betslipheader">
-        <h2 style="padding:5px">NBA Sport Bet</h2>
+        <h2>NBA Sport Bet</h2>
     </div>
-    <div  class="betform">
+    <div class="betform">
         <form action="{% url 'bets:sportwager_bet' %}" method="post">
                 {% csrf_token %}
             <h3 style="padding:5px">{{bet.eventdate}}</h3>

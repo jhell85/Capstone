@@ -13,8 +13,8 @@ if the player picked the winning team it pays out the credits to the user's prof
 if the user picked the incorrect team it does nothing
 '''
 
-yesterday = (datetime.datetime.now() - timedelta(2)).strftime('%Y-%m-%d')
-yesterday2 = (datetime.datetime.now() - timedelta(2)).strftime('%Y' + '%m' + '%d')
+yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
+yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
 print(yesterday)
 class Command(BaseCommand):
     def handle(self, *args, **options):

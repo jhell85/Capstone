@@ -1,21 +1,72 @@
  
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    {% load static %}
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <style>
+        #log_out{
+            padding-bottom:20px
+        }
+        .form{
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        }
+        .form > div {
+            width :300px;
+            padding : 5px;
+            text-align: center;
+            color: black;
+        }
+        .form > div > textarea {
+            width: 300px;
+           
+        }
+        .form > div >button {
+            background-color: darkorange;
+            border-color: black
+            
+        }
+        #namediv{
+            display:inline-flex
+        }
+        #submit_bt_div{
+            display: inline-flex;
+            justify-content: flex-end;
+        }
+        
+       
+
+    </style>
 </head>
-<body>    
-    <a id="log_out" href="{% url 'users:logout_user' %}">logout</a>
-    <h1 id="header">Welcome to the custom bet creation page</h1>
-    <a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
-    
-    <h2>Create a new bet:</h2>
-    <div class="main_div">
+<body class="body">    
+    <a class="logout" id="log_out" href="{% url 'users:logout_user' %}">logout</a>
+    <div class="textheader headerdiv">
+        <h1 id="header">Welcome to the custom bet creation page</h1>   
+        <h2>Create a new bet:</h2>
         <form action="{% url 'bets:create_bet' %}" method="post" class="create_bet">
             {% csrf_token %}
-            <input type="text" name="name" required placeholder="name your bet"/>
-            <textarea name="description"  required placeholder="Description"></textarea><button type="submit">SUBMIT</button><br>
-            <b>give a description for your bet with clear paramiters to determine a winning bet</b>
+            <div class="form">
+                <div id="namediv">
+                    <input type="text" name="name" required placeholder="name your bet"/>
+                </div>
+                <div>
+                    <textarea name="description"  required placeholder="Description"></textarea>
+                </div>
+                <div id="submit_bt_div">
+                    <button class="rounded_bt" type="submit">SUBMIT</button>
+                </div>
+                <h3>give a description for your bet with clear paramiters to determine a winning bet</h3>
+            </div>
         </form>
+        <a href="{% url 'bets:openbets_page' %}">Join a bet that's already in progress</a>
     </div>  

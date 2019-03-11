@@ -29,7 +29,7 @@ def get_open_sportbets():
     # tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%Y-%m-%d')
     # tomorrow2 = (datetime.datetime.now() + timedelta(1)).strftime('%a %b %d')
     
-    for x in range(1, 4):
+    for x in range(0, 4):
         
         date = get_date(x)
         text_date = get_date_text(x)

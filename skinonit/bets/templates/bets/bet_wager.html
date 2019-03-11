@@ -1,30 +1,79 @@
-<a href="{% url 'users:logout_user' %}">logout</a>
-<h2>Wager your bet {{user.username}} you have {{user.userprofile.credits}} credits to bet with</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
 
-<div>
-   <h3>{{bet.name}}</h3>
-   <b>Description:</b>
-   <div>{{bet.description}}</div>
-</div>
-<form action="{% url 'bets:wager_bet' %}" method="post">
-    {% csrf_token %}
-    <input type="number" name="amount" id="amount" placeholder="wager amount"><br>
-    <input type="radio" name="for_against" value="True">For<br>
-    <input type="radio" name="for_against" value="False">Against<br>
-    <input type="hidden" name="bet" value={{bet.id}}>
-    <input type="hidden" name="user" value={{user.id}}>
-    <button type="submit" id= "bt_submit">SUBMIT</button>
-</form>
- 
-<script type="text/javascript">
-    let amount = document.querySelector('#amount')
-    let bt_submit = document.querySelector('#bt_submit')
-    bt_submit.onclick = function(){
-        if (amount.value <= 0){  
-            return false
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <style>
+        .betform > div {
+            padding :5px;
+            padding-left: 20px;
         }
 
-    }
+    </style>
+</head>
+<body class="body">
+    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <div class="textheader headerdiv">
+        <h2>Wager your bet {{user.username}}</h2>
+        <h2>you have {{user.userprofile.credits}} credits to bet with</h2>
+    </div>
+   
+    <div class="betslipheader">
+        <h2>{{bet.name}}</h2>
+    </div>
+    <div class="betform">
+        <div class="largefont">Description of bet:</div>
+        <div class="mediumfont">{{bet.description}}</div>
+        <div>
+            <form action="{% url 'bets:wager_bet' %}" method="post">
+                {% csrf_token %}
+                <input id="amount"class="amount" type="number" name="amount" id="amount" placeholder="wager amount"><br>
+                <h3>For<input id="forradio" class="mediumfont radiobt"type="radio" name="for_against" value="True"></h3>
+                <h3>Against<input id="againstradio" class="largefont radiobt" type="radio" name="for_against" value="False"></h3>
+                <input type="hidden" name="bet" value={{bet.id}}>
+                <input type="hidden" name="user" value={{user.id}}>
+                <button id="bt_submit" class="bt_submit" type="submit" id= "bt_submit">SUBMIT</button>
+            </form>
+        </div>
+    </div>
+    <h4 class="betformdiv betslipfooter">odds for this bet are a 1:1 payout</h4>
+</body>
+ 
+<script type="text/javascript">
+    let forradio = document.querySelector("#forradio")
+        let againstradio = document.querySelector("#againstradio")
+        let bt_submit = document.querySelector('#bt_submit')
+        let amount = document.querySelector('#amount')
+        bt_submit.onclick = function() {
+           let teamselection = `Your betting against {{bet.name}}, saying it will not come true `
+           let payout = (amount.value)*2 
+           console.log(payout)
+            if (amount.value <= 0){
+                alert(`specify amount`)
+                return false
+            } 
+            // if (!homeradio.checked && !awayradio.checked){
+            //     alert(`select {{bet.awayteam}} or {{bet.hometeam}}`)
+            //     return false
+            // }
+            if (forradio.checked) {
+                teamselection = `Your betting for {{bet.name}} bet, saying it will come true`
+                return confirm(`${teamselection} for ${amount.value} credits \nfor a payout of ${payout} credits`);
+            } else if (againstradio.checked) {
+                return confirm(`${teamselection} for ${amount.value} credits \nfor a payout of ${payout} credits `);
+            } else {
+                alert(`select For or Against {{bet.name}} `);
+                return false;
+            }
+        }
 
 
 </script>

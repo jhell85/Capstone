@@ -13,12 +13,12 @@
     <link rel="stylesheet" type="text/css" href="{% static 'users/index.css' %}">
 </head>
 
-<body style="background:  rgb(20, 20, 160)">
+<body class="body">
     <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
     <div id="protectedpage" class="container">
         
         <h1>Welcome {{user.username}} You have {{user.userprofile.credits}} Credits</h1>
-        <div class="imagelinks well well-lg" style="background:darkorange">
+        <div class="imagelinks well well-lg orange_container" >
             <div class="images">
                 <h3 class="">Join a live bet</h3>
                 <a href="{% url 'bets:openbets_page' %}">

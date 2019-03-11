@@ -1,7 +1,9 @@
 #header {
-    color: green;
+    color: darkorange;
 }
-
+.rounded_bt{
+    border-radius: 5px;
+}
 .gameform{
     margin: 3px;
 }
@@ -29,6 +31,10 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+.betslipheader > h2 {
+    padding: 5px;
+}
+
 .betslipfooter{
     display: flex;
     align-items: flex-start;
@@ -40,6 +46,14 @@
 .textheader{
     display:flex;
     flex-direction: column;
+}
+.headerdiv{
+    margin-top:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+
 }
 .my_container > div {
     width:200px;
@@ -58,6 +72,12 @@
     padding: 8px;
     font-size: large;
     color: yellow
+}
+.largefont{
+    font-size: large;
+}
+.mediumfont{
+    font-size: medium;
 }
 .gamediv{
     border: 3px solid rgba(26, 121, 7, 0.938);
@@ -90,4 +110,15 @@
 }
 .betformdiv{
     padding-left:5px;
+}
+#bt_submit{
+    background-color:darkorange;
+    color:black;
+    border-radius: 5px;
+    border-color: black;  
+}    
+#amount{
+    margin: 5px;
+    color:black;
+    border-radius: 5px;
 }
