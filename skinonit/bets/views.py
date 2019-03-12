@@ -70,9 +70,13 @@ def wager_page(request, bet_id):
 
 @login_required
 def complete_page(request, bet_id):
-    user_bet = UserSportBet.objects.get(id=bet_id)
+    user_bet = UserBet.objects.get(id=bet_id)
     print('\n'*25, user_bet)
     return render(request, 'bets/complete_page.html',{'user_bet': user_bet})
+
+def complete_sportpage(request, bet_id):
+    user_bet = UserSportBet.objects.get(id=bet_id)
+    return render(request, 'bets/complete_sportpage.html',{'user_bet': user_bet})
 
 @login_required
 def outcome_page(request):
@@ -110,7 +114,7 @@ def sportwager_bet(request):
     user_profile.save()
     userbet = UserSportBet(userprofile=user_profile, amount=amount, home=home, sportbet_id=bet)
     userbet.save() 
-    url = reverse('bets:complete_page', kwargs={'bet_id': userbet.id})
+    url = reverse('bets:complete_sportpage', kwargs={'bet_id': userbet.id})
     return HttpResponseRedirect(url)
 
 

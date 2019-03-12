@@ -1,42 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-        {% load static %}
-        <link rel="stylesheet" type="text/css" href="{% static 'users/index.css' %}">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'users/index.css' %}">
 </head>
 
 
+<body class="body">  
+    <div class="imageholder">
+        <img class= "img-rounded alignself_start"src="{% static "bets/IFWT-Sports-Betting.jpg" %}" alt="My image" width="100" height="75"/>
+        <img class="img-rounded alignself_end"src="{% static "users/sports-money.jpg" %}" alt="My image" width="100" height="75"/>
+    </div>
+    <div class="container">
+    <h1> Welcome to skin Onit </h1>
+    <h3>A free betting app to let you wager sports bets and get paid with our complementry credit system</h3>
+    <h3>Sign up now to recive 500 free credits</h3>
+    </div>
 
-<img src="{% static "bets/IFWT-Sports-Betting.jpg" %}" alt="My image" width="100"/>
-<div class="container">
-<h1> Welcome to skin Onit </h1>
-<h3>A free betting app to let you wager sports bets and get paid with our complementry credit system</h3>
-<h3>Sign up now to recive 500 free credits</h3>
-</div>
+    <form action="{% url 'users:register_user' %}" method="post">
+        {% csrf_token %}
+        <div class="containerform">
+            <div><input type="hidden" name="next" value="{{next}}"/></div>
+            <div><input type="text" name="username" required placeholder="username"/></div>
+            <div><input type="text" name="email" required placeholder="email address"/></div>
+            <div><input type="password" id="input_password" name="password" required placeholder="password"/></div>
+            <div><input type="password" id="input_password_confirm" name="confirm_password" required placeholder="confirm password"/></div>
+            <div><button class="bt_submit" id="bt_submit" type="submit">register</button></div>
+        </div>
+    </form>
 
-<form action="{% url 'users:register_user' %}" method="post">
-    {% csrf_token %}
-    <input type="hidden" name="next" value="{{next}}"/>
-    <input type="text" name="username" required placeholder="username"/><br>
-    <input type="text" name="email" required placeholder="email address"/><br>
-    <input type="password" id="input_password" name="password" required placeholder="password"/>
-    <input type="password" id="input_password_confirm" name="confirm_password" required placeholder="confirm password"/><br>
-    <button id="bt_submit" type="submit">register</button>
-</form>
-
-<div>
-    already a member <a href="{% url 'users:login_page' %}">login</a>
-</div>
+    <div>
+        already a member <a href="{% url 'users:login_page' %}">login</a>
+    </div>
 
 
 
-<script type="text/javascript">
-    let input_password = document.querySelector('#input_password')
-    let input_password_confirm = document.querySelector('#input_password_confirm')
-    let bt_submit = document.querySelector('#bt_submit')
-    bt_submit.onclick = function() {
-        if (input_password.value !== input_password_confirm.value)
-            return false
-    }
+    <script type="text/javascript">
+        let input_password = document.querySelector('#input_password')
+        let input_password_confirm = document.querySelector('#input_password_confirm')
+        let bt_submit = document.querySelector('#bt_submit')
+        bt_submit.onclick = function() {
+            if (input_password.value !== input_password_confirm.value)
+                return false
+        }
 
-</script>
-
+    </script>
+</body>
+</html>
 

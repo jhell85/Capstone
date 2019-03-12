@@ -14,7 +14,9 @@
 </head>
 
 <body class="body">
-    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    </div>  
     <div id="protectedpage" class="container">
         
         <h1>Welcome {{user.username}} You have {{user.userprofile.credits}} Credits</h1>

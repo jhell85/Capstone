@@ -1,11 +1,30 @@
 .container{ 
-    max-width: 700px;
+    
     margin: 0 auto 5px;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
+.containerform{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center
+}
+.containerform > div{
+    padding: 4px;
+    color: black;
+}
+
+.credits{
+    margin-top: 40px;
+    position: absolute;
+    right: 9px;
+    padding: 14px;
+    color: rgb(100, 226, 68)
+}
+
 .imagelinks{
     display: flex;
     flex-flow: wrap;
@@ -18,20 +37,41 @@
 }
 .logout{
     position: absolute;
-    right: 0px;
+    margin-top: 10 px;
+    right: 10px;
     padding: 8px;
     font-size: large;
-    color: yellow
+    color: yellow;
+}
+#bt_submit{
+    background-color:darkorange;
+    color:black;
+    border-radius: 5px;
+    border-color: black;  
 }
 .body {
     padding: 40px;
     background-color: rgb(20, 20, 160);
     color:navajowhite;
 }
+.body > input{
+    color: black;
+}
 .orange_container{
     background-color: darkorange;
     border-color: black;
 
+}
+.imageholder{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+.alignself_start{
+    align-self: flex-start
+}
+.alignself_end{
+    align-self: flex-end;
 }
 #protectedpage{
     display: flex;

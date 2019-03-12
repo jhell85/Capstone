@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <style>
+        .description{
+            align-self: flex-start;
+        }
+        .credits{
+            align-self: flex-end;
+        }
+        #betresults{
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+        <h4 class="credits">{{user.userprofile.credits}} credits</h4>
+    </div>  
+    <div class="container well well-lg orange_container">
+        <h1>Good luck {{user.username}}</h1> 
+        <h2 class="alignself_start">yourbet:</h2>
+        <h3>{{user_bet.user_city}} {{user_bet.user_team}} to win on {{user_bet.eventdate}} playing {{user_bet.home_away}} against the {{user_bet.opponet_city}} {{user_bet.opponet_team}}</h3>
+        <h2 class="alignself_start"id="betresults"><b>Risking: </b>{{user_bet.amount}} credits</h2>
+        <h1 class="alignself_start">to <b>Win: {{user_bet.payout}}</b></h1>
+     
+        <a class="mediumfont"href="{% url 'users:protected' %}">Bets Index</a>
+    </div>
+</body>
+
+</html>

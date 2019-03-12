@@ -15,6 +15,15 @@ class UserBet(models.Model):
     for_against = models.BooleanField()
     def __str__(self):
         return f'{self.bet.name} - {self.amount} - side of bet:{self.for_against} {self.userprofile.user.username}'
+    def for_against_name(self):
+        if self.for_against == True:
+            return f'for'
+        else:
+            return f'against'
+    def payout(self):
+        payout = ((self.amount) *2)
+        return payout
+
 
 class SportBet(models.Model):
     hometeam = models.CharField(max_length=200)
@@ -37,5 +46,37 @@ class UserSportBet(models.Model):
     sportbet = models.ForeignKey(SportBet, on_delete=models.PROTECT)
     home = models.BooleanField()
     amount = models.IntegerField()
+
     def __str__(self):
-        return f'{self.sportbet} {self.userprofile} amount:{self.amount} home:{self.home}' 
+        return f'{self.sportbet} {self.userprofile} amount:{self.amount} home:{self.home}'
+    
+    def user_team(self):
+        if self.home:
+            return self.sportbet.hometeam
+        return self.sportbet.awayteam
+
+    def user_city(self):
+        if self.home:
+            return self.sportbet.homecity
+        return self.sportbet.awaycity
+
+    def opponet_city(self):
+        if self.home:
+            return self.sportbet.awaycity
+        return self.sportbet.homecity
+
+    def opponet_team(self):
+        if self.home:
+            return self.sportbet.awayteam
+        return self.sportbet.hometeam
+
+    def home_away(self):
+        if self.home:
+            return 'at home'
+        return 'on the road'
+
+    def eventdate(self):
+        return self.sportbet.eventdate
+
+    def payout(self):
+        return self.amount*2

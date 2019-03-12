@@ -1,5 +1,40 @@
-<a href="{% url 'users:logout_user' %}" class="logout">logout</a>
-<h1>Your at the complete_page page {{user.username}}</h1>
-<h2>user_bet id is {{user_bet.id}}</h2>
-<h2>bet description is {{user_bet.bet.description}} your credits are {{user.userprofile.credits}}</h2>
-<a href="{% url 'bets:index' %}">Bet index</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+      
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bets/style.css' %}">
+    <style>
+        .description{
+            align-self: flex-start;
+        }
+        .credits{
+            align-self: flex-end;
+        }
+        #betresults{
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body class="body">
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+        <h4 class="credits">{{user.userprofile.credits}} credits</h4>
+    </div>  
+    <div class="container well well-lg orange_container">
+        <h1>Good luck {{user.username}} you're in on the {{user_bet.bet.name}} bet</h1>
+        <h2 class="description">Description:</h2>
+        <h3 class="description">{{user_bet.bet.description}}</h3>
+        <h2 id="betresults">you bet {{user_bet.for_against_name}} the outcome of this bet for {{user_bet.amount}} credits</h2>
+        <h2>your payout will be {{user_bet.payout}}</h2>
+        <a class="mediumfont"href="{% url 'users:protected' %}">Bets Index</a>
+    </div>
+</body>
+
+</html>

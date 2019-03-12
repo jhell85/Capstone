@@ -20,7 +20,10 @@
     </style>
 </head>
 <body class="body">
-    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+        <h4 class="credits">{{user.userprofile.credits}} credits</h4>
+    </div>  
     <div class="textheader headerdiv">
         <h2>Wager your bet {{user.username}}</h2>
         <h2>you have {{user.userprofile.credits}} credits to bet with</h2>

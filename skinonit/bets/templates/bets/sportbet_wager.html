@@ -19,9 +19,10 @@
 </head>
 
 <body class="body">
-    <div class="logoutdiv">
-        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
-    </div>
+        <div class="logoutdiv">
+                <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+                <h4 class="credits">{{user.userprofile.credits}} credits</h4>
+            </div>  
     <div class="betslipheader">
         <h2>NBA Sport Bet</h2>
     </div>
@@ -61,7 +62,7 @@
             } else if (awayradio.checked) {
                 return confirm(`betting on the ${teamselection} for ${amount.value} credits \nfor a payout of ${payout} credits `);
             } else {
-                alert(`select {{bet.awayteam}} or {{bet.hometeam}} `);
+                alert(`select {{bet.awayteam}} or {{bet.hometeam}}`);
                 return false;
             }
         }

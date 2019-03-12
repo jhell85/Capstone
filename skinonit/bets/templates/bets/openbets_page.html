@@ -27,7 +27,10 @@
     </style>
 </head>
 <body class="body">
-    <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+    <div class="logoutdiv">
+        <a href="{% url 'users:logout_user' %}" class="logout">logout</a>
+        <h4 class="credits">{{user.userprofile.credits}} credits</h4>
+    </div>  
     <h1 class="textcolor">NBA Games</h1>
     
     <div class="columncontainer">

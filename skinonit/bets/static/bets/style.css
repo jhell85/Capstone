@@ -31,6 +31,22 @@
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
+.orange_container{
+    background-color: darkorange;
+    border-color: black;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+    margin-top: 70px;
+}
+.alignself_start{
+    align-self: flex-start
+}
+.alignself_end{
+    align-self: flex-end;
+}
+
 .betslipheader > h2 {
     padding: 5px;
 }
@@ -68,10 +84,18 @@
 }
 .logout{
     position: absolute;
-    right: 0px;
+    margin-top: 10 px;
+    right: 10px;
     padding: 8px;
     font-size: large;
-    color: yellow
+    color: yellow;
+}
+.credits{
+    margin-top: 40px;
+    position: absolute;
+    right: 9px;
+    padding: 14px;
+    color: rgb(100, 226, 68)
 }
 .largefont{
     font-size: large;
