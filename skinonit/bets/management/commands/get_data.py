@@ -3,6 +3,7 @@ import requests
 import base64
 import json
 import datetime
+from datetime import timedelta
 from bets.models import SportBet
 from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
 
@@ -10,7 +11,11 @@ from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
 this program is made to grab the data from the api that includes the information of all the games 
 played for the season and bring it into the models data base 
 '''
-date = Yesterday2
+
+yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
+yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
+
+date = yesterday2
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -21,24 +26,24 @@ class Command(BaseCommand):
                 "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')
             }
         )
-        games = json.loads(r.text)['fullgameschedule']['gameentry']
-        
+        games = json.loads(r.text)
+        print(games)
 
-        for game in games:
-            if game['date'] >= yesterday:
-                print(getDate2())
-                sportbet = SportBet()
-                sportbet.homecity = game['homeTeam']['City']
-                sportbet.hometeam = game['homeTeam']['Name']
-                sportbet.awaycity = game['awayTeam']['City']
-                sportbet.awayteam = game['awayTeam']['Name']
-                sportbet.eventdate = game['date']
-                sportbet.homescore = 0
-                sportbet.awayscore = 0
-                sportbet.completed = False
-                sportbet.idofapi = game['id']
-                print(sportbet)
-                sportbet.save()
+        # for game in games:
+        #     if game['date'] >= yesterday:
+          
+        #         sportbet = SportBet()
+        #         sportbet.homecity = game['homeTeam']['City']
+        #         sportbet.hometeam = game['homeTeam']['Name']
+        #         sportbet.awaycity = game['awayTeam']['City']
+        #         sportbet.awayteam = game['awayTeam']['Name']
+        #         sportbet.eventdate = game['date']
+        #         sportbet.homescore = 0
+        #         sportbet.awayscore = 0
+        #         sportbet.completed = False
+        #         sportbet.idofapi = game['id']
+        #         print(sportbet)
+        #         sportbet.save()
 
 
 
