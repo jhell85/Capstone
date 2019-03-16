@@ -4,7 +4,7 @@ import base64
 import json
 import datetime
 from datetime import timedelta
-from bets.models import SportBet
+from bets.models import SportBet, FutureBet
 from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
 
 '''
@@ -13,14 +13,15 @@ played for the season and bring it into the models data base
 '''
 
 yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
-yesterday2 = (datetime.datetime.now() - timedelta(0)).strftime('%Y' + '%m' + '%d')
+yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
 
 date = yesterday2
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
         r = requests.get(
-            url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_gamelines.json?source=bovada',
+            # url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_gamelines.json?source=bovada',
+            url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_futures.json?source=bovada',
 
             # url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
             # url='https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+ date,
@@ -28,8 +29,23 @@ class Command(BaseCommand):
                 "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')
             }
         )
-        games = json.loads(r.text)
-        print(games)
+        futures = json.loads(r.text)['futures']
+        # print(futures)
+        for b in futures:
+            furturedescription = b['futureDescription']
+            betupdate = b['lineHistory'][-1]['asOfTime']
+            for line in b['lineHistory'][-1]['lines']:
+                futurebet = FutureBet()
+                futurebet.updated = betupdate
+                futurebet.description = furturedescription
+                futurebet.team = line['lineDescription']
+                futurebet.american = line['line']['american']
+                futurebet.decimal = line['line']['decimal']
+                # futurebet.save()
+                print(futurebet)
+
+
+       
 
         # for game in games:
         #     if game['date'] >= yesterday:

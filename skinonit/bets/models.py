@@ -81,3 +81,12 @@ class UserSportBet(models.Model):
 
     def payout(self):
         return self.amount*2
+
+class FutureBet(models.Model):
+    updated = models.DateTimeField()
+    description = models.CharField(max_length=200)
+    team = models.CharField(max_length=200)
+    american = models.IntegerField(default=0)
+    decimal = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    def __str__(self):
+        return f'{self.description} / {self.team} / odds {self.decimal}'

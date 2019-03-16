@@ -34,8 +34,11 @@ def get_data():
     )
     futures = json.loads(r.text)['futures']
     for b in futures:
-        print(b['futureDescription'])
-    print('x')
+        print(b['lineHistory'][-1]['asOfTime'])
+        # print(b['futureDescription'])
+        # print(b['lineHistory'][-1])
+        # for line in b['lineHistory'][-1]['lines']:
+        #     print (line['lineDescription'])
 
 def get_open_bets():
     rows = []
