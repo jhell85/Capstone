@@ -13,14 +13,16 @@ played for the season and bring it into the models data base
 '''
 
 yesterday = (datetime.datetime.now() - timedelta(1)).strftime('%Y-%m-%d')
-yesterday2 = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
+yesterday2 = (datetime.datetime.now() - timedelta(0)).strftime('%Y' + '%m' + '%d')
 
 date = yesterday2
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
         r = requests.get(
-            url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
+            url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_gamelines.json?source=bovada',
+
+            # url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
             # url='https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+ date,
             headers={
                 "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')

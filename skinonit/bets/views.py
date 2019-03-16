@@ -7,6 +7,35 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 import datetime
 from datetime import timedelta
+from django.core import management
+from django.core.management import call_command
+from django.core.management.commands import loaddata
+from bets.management.commands.secrets import mysportsfeeds_api_key, mysportsfeeds_password
+from django.core.management.base import BaseCommand
+import requests
+import base64
+import json
+import datetime
+from datetime import timedelta
+from bets.models import SportBet
+# from secrets import mysportsfeeds_api_key, mysportsfeeds_password
+
+date = (datetime.datetime.now() - timedelta(1)).strftime('%Y' + '%m' + '%d')
+
+def get_data():
+    r = requests.get(
+        # url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_gamelines.json?source=bovada',
+        url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_futures.json?source=bovada',
+        # url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
+        # url='https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+ date,
+        headers={
+            "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')
+        }
+    )
+    futures = json.loads(r.text)['futures']
+    for b in futures:
+        print(b['futureDescription'])
+    print('x')
 
 def get_open_bets():
     rows = []
@@ -45,6 +74,7 @@ def get_open_sportbets():
             }
             games.append(game)
             x =+ 1
+    get_data()
     return games
 
 def create_usersportbet(request):
