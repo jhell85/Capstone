@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import UserProfile
+from fractions import Fraction
 
 class Bet(models.Model):
     name = models.CharField(max_length=200)
@@ -83,10 +84,12 @@ class UserSportBet(models.Model):
         return self.amount*2
 
 class FutureBet(models.Model):
+    league = models.CharField(max_length=10)
     updated = models.DateTimeField()
     description = models.CharField(max_length=200)
     team = models.CharField(max_length=200)
     american = models.IntegerField(default=0)
     decimal = models.DecimalField(default=0, decimal_places=2, max_digits=10)
+    fractional = models.CharField(max_length=10)
     def __str__(self):
-        return f'{self.description} / {self.team} / odds {self.decimal}'
+        return f'{self.description} - {self.team} - {self.fractional}'

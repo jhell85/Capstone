@@ -29,18 +29,21 @@ class Command(BaseCommand):
                 "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')
             }
         )
+
+        # gets latest FuturesBet odds data from api
         futures = json.loads(r.text)['futures']
-        # print(futures)
         for b in futures:
             furturedescription = b['futureDescription']
             betupdate = b['lineHistory'][-1]['asOfTime']
             for line in b['lineHistory'][-1]['lines']:
                 futurebet = FutureBet()
+                futurebet.league = 'NBA'
                 futurebet.updated = betupdate
                 futurebet.description = furturedescription
                 futurebet.team = line['lineDescription']
                 futurebet.american = line['line']['american']
                 futurebet.decimal = line['line']['decimal']
+                futurebet.fractional = line['line']['fractional']
                 # futurebet.save()
                 print(futurebet)
 
