@@ -82,6 +82,7 @@ class UserSportBet(models.Model):
 
     def payout(self):
         return self.amount*2
+    
 
 class FutureBet(models.Model):
     league = models.CharField(max_length=10)
@@ -92,4 +93,5 @@ class FutureBet(models.Model):
     decimal = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     fractional = models.CharField(max_length=10)
     def __str__(self):
-        return f'{self.description} - {self.team} - {self.fractional}'
+        return f'{self.updated}-{self.description} - {self.team} - {self.fractional}'
+    
