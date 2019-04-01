@@ -106,7 +106,8 @@ def get_open_sportbets():
     get_open_futureodds()
     return games
 def get_open_futureodds():
-    bet_list = []
+    get_updatedodds()
+    bet_lines = []
     bets = FutureBet.objects.all()
     counter = 0
     for bet in bets: 
@@ -118,8 +119,8 @@ def get_open_futureodds():
             'counter' : counter
         }
         counter += 1
-        bet_list.append(future)
-    print(bet_list)
+        bet_lines.append(future)
+    return bet_lines
 
     
 
@@ -164,7 +165,8 @@ def openbets_page(request):
     tomorrow = (datetime.datetime.now() + timedelta(1)).strftime('%x')
     rows = get_open_bets()
     games = get_open_sportbets()
-    return render(request, 'bets/openbets_page.html', {'rows': rows, 'games': games, 'tomorrow': tomorrow})
+    futures = get_open_futureodds()
+    return render(request, 'bets/openbets_page.html', {'rows': rows, 'games': games, 'tomorrow': tomorrow, 'futures': futures})
 
 def create_userbet(request):
     bet_id = request.POST['bet_id']
