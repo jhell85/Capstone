@@ -106,7 +106,7 @@ def get_open_sportbets():
     get_open_futureodds()
     return games
 def get_open_futureodds():
-    get_updatedodds()
+    # get_updatedodds()
     bet_lines = []
     bets = FutureBet.objects.all()
     counter = 0

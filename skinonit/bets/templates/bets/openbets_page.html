@@ -73,22 +73,21 @@
         <img class="img-responsive" src="{% static "bets/footer.png" %}" alt="footer" />
     </div>
 
-    <div>
+    <div class="columncontainer">
         {%for future in futures%}
-        {% ifchanged future.description %} <h1>{{ future.description }}</h1> {% endifchanged %}
-
-        <form class="gameform" action="{% url 'bets:create_userbet' %}" method="post">
-                {% csrf_token %}
-            <input type="hidden" name="sportbet_id" value={{game.id}}>
-            <button class="sport_bt" type="submit">
-                <div class="gameholder">
-                    <div>{{future.team}}</div>
-                    <div>Odds: {{ future.fractional }}</div>
-                </div>
-            </button>
+        <div>{% ifchanged future.description %} <h1>{{ future.description }}</h1><br> {% endifchanged %}</div>
+            
+            <form class="gameform" action="{% url 'bets:create_userbet' %}" method="post">
+                    {% csrf_token %}
+                <input type="hidden" name="sportbet_id" value={{game.id}}>
+                <button class="sport_bt" type="submit">
+                    <div class="gameholder">
+                        <div>{{future.team}}</div>
+                        <div>Odds: {{ future.fractional }}</div>
+                    </div>
+                </button>
+            </form>
         {% endfor %}
-
-
     </div>
 <script>
     $(document).ready(function(){
