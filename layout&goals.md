@@ -9,3 +9,15 @@ create a web application that lets users create a profile and place bets with ot
     - bets that are still waiting to be accepted by another user
 5. Check completed bets that have and haven't been paid out
 6. Wall of Shame
+## Data Model
+1. Users
+    - Name
+    - email 
+    - rating (5 star rating system )
+    - profile picture
+    - bio 
+    - Open bets the user is involved in
+        - Bets that another user have and haven't been accepted by another user
+2. Bets
+    - 
+        
