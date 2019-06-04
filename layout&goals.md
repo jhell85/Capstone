@@ -20,13 +20,13 @@ create a web application that lets users create a profile and place bets with ot
         - Bets that have been accepted by another user
         - Bets that are still waiting to be accepted by another user (open bet)
     - Closed bets the user is involved in
-        - Bets that have been agreed by all users involved that the outcome was settled 
-        - Bets that have not been agreed to being settled 
+        - (Completed bets) that have been agreed by all users involved that the payment was settled 
+        - (Open completed) Bets that have not been agreed to being settled yet
 2. Bets
     - odds placed bets 
         - give users the options to change odds but show what vegas or other online casinos are offering in odds play
     - give users options to bet with points giving or reciving points to a certian side
-    - straight up bet no odds
-    - text base bets
+    - straight up bet no odds no points ex: I bet you $10 that this team won't win 
+    - text base bets (we have no way to determine a winner on this it must be decided between users involved)
 
         
