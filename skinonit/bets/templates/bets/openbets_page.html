@@ -70,20 +70,20 @@
     </div>
   
     <div class="center">
-        <img class="img-responsive" src="{% static "bets/footer.png" %}" alt="footer" />
+        <img class="img-responsive" src="{% static "bets/footer.png" %}" alt="footer" />y
     </div>
 
     <div class="columncontainer">
         {%for future in futures%}
         <div>{% ifchanged future.description %} <h1>{{ future.description }}</h1><br> {% endifchanged %}</div>
             
-            <form class="gameform" action="{% url 'bets:create_userbet' %}" method="post">
+            <form class="gameform" action="{% url 'bets:create_usersportbet' %}" method="post">
                     {% csrf_token %}
-                <input type="hidden" name="sportbet_id" value={{game.id}}>
+                <input type="hidden" name="bet_id" value="{{future.id}}">
                 <button class="sport_bt" type="submit">
                     <div class="gameholder">
-                        <div>{{future.team}}</div>
-                        <div>Odds: {{ future.fractional }}</div>
+                        <div>{{future.team}} --{{future.id}}</div>
+                        <div>Odds: {{future.fractional}}</div>
                     </div>
                 </button>
             </form>

@@ -91,8 +91,8 @@ def get_open_sportbets():
         
         date = get_date(x)
         text_date = get_date_text(x)
-        for bet in SportBet.objects.filter(eventdate=date):
-
+        for bet in SportBet.objects.filter(eventdate=date): 
+        
             game = {
                 'date' : text_date,
                 'id' : bet.id,

@@ -1,11 +1,19 @@
-.container{ 
-    
+
+.columncontainer{
     margin: 0 auto 5px;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    flex-direction: column !important;
+}
+.container{ 
+    margin: 0 auto 5px;
+    align-items: center;
+    display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .containerform{
     display: flex;
