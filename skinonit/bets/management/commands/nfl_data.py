@@ -35,6 +35,7 @@ class Command(BaseCommand):
         for b in futures:
             furturedescription = b['futureDescription'] # getting the bet description
             betupdate = b['lineHistory'][-1]['asOfTime']
+            source = b['source']['name']
             for line in b['lineHistory'][-1]['lines']:
                 futurebet = FutureBet()
                 futurebet.league = 'NFL'
@@ -44,5 +45,6 @@ class Command(BaseCommand):
                 futurebet.american = line['line']['american']
                 futurebet.decimal = line['line']['decimal']
                 futurebet.fractional = line['line']['fractional']
+                futurebet.source = source
                 # futurebet.save()
                 print(futurebet)

@@ -37,7 +37,8 @@ class SportBet(models.Model):
     completed = models.BooleanField()
     idofapi = models.IntegerField(default=None)
     league = models.CharField(max_length=100)
-    
+    source = models.CharField(max_length=100)
+
     def __str__(self):
         if self.completed == True:
             return f'{self.eventdate} {self.awayteam} {self.awayscore} @ {self.hometeam} {self.homescore}'
@@ -94,6 +95,7 @@ class FutureBet(models.Model):
     american = models.IntegerField(default=0)
     decimal = models.DecimalField(default=0, decimal_places=2, max_digits=10)
     fractional = models.CharField(max_length=10)
+    source = models.CharField(max_length=100)
     def __str__(self):
-        return f'{self.updated}-{self.description} - {self.team} - {self.fractional}'
+        return f'{self.updated}-{self.description} - {self.team} - {self.fractional} - {self.source}'
     
