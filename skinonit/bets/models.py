@@ -67,23 +67,23 @@ class UserSportBet(models.Model):
     
     def user_team(self):
         if self.home:
-            return self.sportbet.hometeam
-        return self.sportbet.awayteam
+            return self.hometeam
+        return self.awayteam
 
     def user_city(self):
         if self.home:
-            return self.sportbet.homecity
-        return self.sportbet.awaycity
+            return self.homecity
+        return self.awaycity
 
     def opponet_city(self):
         if self.home:
-            return self.sportbet.awaycity
-        return self.sportbet.homecity
+            return self.awaycity
+        return self.homecity
 
     def opponet_team(self):
         if self.home:
-            return self.sportbet.awayteam
-        return self.sportbet.hometeam
+            return self.awayteam
+        return self.hometeam
 
     def home_away(self):
         if self.home:
@@ -91,7 +91,7 @@ class UserSportBet(models.Model):
         return 'on the road'
 
     def eventdate(self):
-        return self.sportbet.eventdate
+        return self.eventdate
 
     def payout(self):
         return self.amount*2
