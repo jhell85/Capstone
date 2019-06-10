@@ -47,10 +47,20 @@ class SportBet(models.Model):
 
 class UserSportBet(models.Model):
     userprofile = models.ForeignKey(UserProfile, on_delete=models.PROTECT)
-    sportbet = models.ForeignKey(SportBet, on_delete=models.PROTECT)
+    hometeam = models.CharField(max_length=200)
+    homecity = models.CharField(max_length=200)
+    awayteam = models.CharField(max_length=200)
+    awaycity = models.CharField(max_length=200)
+    eventdate = models.DateField()
+    homescore = models.IntegerField(default=0)
+    awayscore = models.IntegerField(default=0)
+    completed = models.BooleanField()
+    idofapi = models.IntegerField(default=None)
+    league = models.CharField(max_length=100)
     home = models.BooleanField()
     amount = models.IntegerField()
     odds = models.FloatField(default=1.0)
+    points = models.FloatField(default=0)
 
     def __str__(self):
         return f'{self.sportbet} {self.userprofile} amount:{self.amount} home:{self.home}'
