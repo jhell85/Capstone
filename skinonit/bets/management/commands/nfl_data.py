@@ -22,8 +22,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         r = requests.get(
             
-            # url='https://api.mysportsfeeds.com/v2.1/pull/nfl/2019-regular/date/'+date+'/odds_futures.json',
-            url='https://api.mysportsfeeds.com/v2.1/pull/mlb/current/date/'+date+'/odds_futures.json',
+            url='https://api.mysportsfeeds.com/v2.1/pull/nfl/2019-regular/date/'+date+'/odds_futures.json',
+            # url='https://api.mysportsfeeds.com/v2.1/pull/mlb/current/date/'+date+'/odds_futures.json',
 
             # url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
             # url='https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+ date,

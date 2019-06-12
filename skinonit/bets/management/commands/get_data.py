@@ -4,8 +4,8 @@ import base64
 import json
 import datetime
 from datetime import timedelta
-from bets.models import SportBet, FutureBet
-from .secrets import mysportsfeeds_api_key, mysportsfeeds_password
+from bets.models import SportBet, FutureBet, Game
+from .secrets import mysportsfeeds_api_key, mysportsfeeds_password2, mysportsfeeds_password
 
 '''
 this program is made to grab the data from the api that includes the information of all the games 
@@ -20,32 +20,34 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         r = requests.get(
+            
             # url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_gamelines.json?source=bovada',
-            url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_futures.json?source=bovada',
+            # url='https://api.mysportsfeeds.com/v2.1/pull/nba/2018-2019-regular/date/'+date+'/odds_futures.json?source=bovada',
 
             # url = 'https://api.mysportsfeeds.com/v1.2/pull/nba/current/full_game_schedule.json',
             # url='https://api.mysportsfeeds.com/v1.2/pull/nba/current/scoreboard.json?fordate='+ date,
+            url='https://api.mysportsfeeds.com/v1.1/pull/mlb/2019-regular/full_game_schedule.json',
             headers={
-                "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password}'.encode('utf-8')).decode('ascii')
+                "Authorization": "Basic " + base64.b64encode(f'{mysportsfeeds_api_key}:{mysportsfeeds_password2}'.encode('utf-8')).decode('ascii')
             }
         )
 
         # gets latest FuturesBet odds data from api
-        futures = json.loads(r.text)['futures']
-        for b in futures:
-            furturedescription = b['futureDescription']
-            betupdate = b['lineHistory'][-1]['asOfTime']
-            for line in b['lineHistory'][-1]['lines']:
-                futurebet = FutureBet()
-                futurebet.league = 'NBA'
-                futurebet.updated = betupdate
-                futurebet.description = furturedescription
-                futurebet.team = line['lineDescription']
-                futurebet.american = line['line']['american']
-                futurebet.decimal = line['line']['decimal']
-                futurebet.fractional = line['line']['fractional']
-                # futurebet.save()
-                print(futurebet)
+        # futures = json.loads(r.text)['futures']
+        # for b in futures:
+        #     furturedescription = b['futureDescription']
+        #     betupdate = b['lineHistory'][-1]['asOfTime']
+        #     for line in b['lineHistory'][-1]['lines']:
+        #         futurebet = FutureBet()
+        #         futurebet.league = 'NBA'
+        #         futurebet.updated = betupdate
+        #         futurebet.description = furturedescription
+        #         futurebet.team = line['lineDescription']
+        #         futurebet.american = line['line']['american']
+        #         futurebet.decimal = line['line']['decimal']
+        #         futurebet.fractional = line['line']['fractional']
+        #         # futurebet.save()
+        #         print(futurebet)
 
 
        
@@ -68,9 +70,24 @@ class Command(BaseCommand):
 
 
 
-        # games = json.loads(r.text)['scoreboard']['gameScore']
-        # for game in games:
-        #     completed = True if (game['isCompleted']) == 'true' else False
+        games = json.loads(r.text)['fullgameschedule']['gameentry']
+       
+        for v in games:
+            if strftime(v.date) > 
+            game = Game()
+            game.date = v['date']
+            game.time = v['time']
+            game.idofapi = v['id']
+            game.league = 'MLB'
+            game.completed = False
+            game.hometeam = v['homeTeam']['Name']
+            game.homecity = v['homeTeam']['City']
+            game.awayteam = v['awayTeam']['Name']
+            game.awaycity = v['awayTeam']['City']
+            game.homescore = 0
+            game.awayscore = 0
+            print(game)
+        #     # completed = True if (game['isCompleted']) == 'true' else False
         #     sportbet = SportBet()
         #     sportbet.homecity = game['game']['homeTeam']['City']
         #     sportbet.hometeam = game['game']['homeTeam']['Name']
@@ -79,9 +96,10 @@ class Command(BaseCommand):
         #     sportbet.eventdate = game['game']['date']
         #     sportbet.homescore = game['homeScore']
         #     sportbet.awayscore = game['awayScore']
-        #     sportbet.completed = completed
+        #     sportbet.completed = True#completed
         #     sportbet.idofapi = game['game']['ID']
-        #     sportbet.save()
+        #     print(sportbet)
+        # #     sportbet.save()
             
             
             

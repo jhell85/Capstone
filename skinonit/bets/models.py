@@ -1,6 +1,21 @@
 from django.db import models
 from users.models import UserProfile
 from fractions import Fraction
+class Game(models.Model):
+    hometeam = models.CharField(max_length=200)
+    homecity = models.CharField(max_length=200)
+    awayteam = models.CharField(max_length=200)
+    awaycity = models.CharField(max_length=200)
+    date = models.DateField()
+    time = models.DateTimeField()
+    homescore = models.IntegerField(default=0)
+    awayscore = models.IntegerField(default=0)
+    completed = models.BooleanField()
+    idofapi = models.IntegerField(default=None)
+    league = models.CharField(max_length=100)
+    def __str__(self):
+        return f'{self.date} {self.time} {self.awayteam} @ {self.hometeam} completed: {self.completed}'
+
 
 class Bet(models.Model):
     name = models.CharField(max_length=200)
