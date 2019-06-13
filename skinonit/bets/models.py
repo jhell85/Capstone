@@ -6,15 +6,14 @@ class Game(models.Model):
     homecity = models.CharField(max_length=200)
     awayteam = models.CharField(max_length=200)
     awaycity = models.CharField(max_length=200)
-    date = models.DateField()
-    time = models.DateTimeField()
+    date = models.DateTimeField()
     homescore = models.IntegerField(default=0)
     awayscore = models.IntegerField(default=0)
     completed = models.BooleanField()
     idofapi = models.IntegerField(default=None)
     league = models.CharField(max_length=100)
     def __str__(self):
-        return f'{self.date} {self.time} {self.awayteam} @ {self.hometeam} completed: {self.completed}'
+        return f'{self.date} {self.awayteam} @ {self.hometeam} completed: {self.completed}'
 
 
 class Bet(models.Model):

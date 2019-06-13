@@ -73,20 +73,22 @@ class Command(BaseCommand):
         games = json.loads(r.text)['fullgameschedule']['gameentry']
        
         for v in games:
-            if strftime(v.date) > 
-            game = Game()
-            game.date = v['date']
-            game.time = v['time']
-            game.idofapi = v['id']
-            game.league = 'MLB'
-            game.completed = False
-            game.hometeam = v['homeTeam']['Name']
-            game.homecity = v['homeTeam']['City']
-            game.awayteam = v['awayTeam']['Name']
-            game.awaycity = v['awayTeam']['City']
-            game.homescore = 0
-            game.awayscore = 0
-            print(game)
+            date = v['date']
+            gamedate = datetime.datetime.strptime(date, '%Y-%m-%d')
+            if gamedate > datetime.datetime.now():
+                game = Game()
+                game.date = date
+                game.time = v['time']
+                game.idofapi = v['id']
+                game.league = 'MLB'
+                game.completed = False
+                game.hometeam = v['homeTeam']['Name']
+                game.homecity = v['homeTeam']['City']
+                game.awayteam = v['awayTeam']['Name']
+                game.awaycity = v['awayTeam']['City']
+                game.homescore = 0
+                game.awayscore = 0
+                print(game)
         #     # completed = True if (game['isCompleted']) == 'true' else False
         #     sportbet = SportBet()
         #     sportbet.homecity = game['game']['homeTeam']['City']
