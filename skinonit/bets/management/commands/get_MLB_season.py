@@ -21,20 +21,22 @@ class Command(BaseCommand):
         )
         games = json.loads(r.text)['fullgameschedule']['gameentry']
         counter = 0  
-        if counter < 15:
-            for v in games:
+        
+        for v in games:
+            if counter < 1:
                 time = v['time']
                 date = v['date']
                 date_time = f'{date}-{time}'
                 timezone = pytz.timezone('US/Eastern')
-                # gamedate = pytz.utc.localize(datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p')) 
+                gamedate = (datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p')) 
                 # gamedate_aware = gamedate.astimezone(pytz.timezone("US/Eastern"))
-                gamedate_aware = pytz.timezone("US/Eastern").localize(datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p')).replace(tzinfo=pytz.UTC)
+                gamedate_aware = pytz.timezone("US/Eastern").localize(datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p'))
                 now = pytz.utc.localize(datetime.datetime.utcnow())
                 # now = timezone.localize(datetime.datetime.now())
-                print (f'{now}----{gamedate_aware}---{date_time}')
-                   
+                
+                
                 if gamedate_aware > now:
+                    print (f'{now}----{gamedate_aware}---{date_time}')
                     game = Game()
                     game.date = gamedate_aware
                     game.idofapi = v['id']
