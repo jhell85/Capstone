@@ -23,20 +23,19 @@ class Command(BaseCommand):
         counter = 0  
         
         for v in games:
-            if counter < 1:
+            if counter <= 3:
                 time = v['time']
                 date = v['date']
-                date_time = f'{date}-{time}'
-                timezone = pytz.timezone('US/Eastern')
-                gamedate = (datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p')) 
-                # gamedate_aware = gamedate.astimezone(pytz.timezone("US/Eastern"))
-                gamedate_aware = pytz.timezone("US/Eastern").localize(datetime.datetime.strptime(date_time, '%Y-%m-%d-%I:%M%p'))
+                event_datetime = f'{date}-{time}'
+                gamedate_aware = pytz.timezone("US/Eastern").localize(datetime.datetime.strptime(event_datetime, '%Y-%m-%d-%I:%M%p')).astimezone(pytz.utc)
+                # takes the date from the API assigns the timezone EST (because that's what the timezone the games are in from the API) to it then converts that time to UTC time zone to be compared to now 
+                G_D = gamedate_aware.strftime('%Y-%m-%d %H:%M:%S %Z')
                 now = pytz.utc.localize(datetime.datetime.utcnow())
-                # now = timezone.localize(datetime.datetime.now())
+                now_Z = now.strftime('%Y-%m-%d %H:%M:%S %Z')
                 
                 
                 if gamedate_aware > now:
-                    print (f'{now}----{gamedate_aware}---{date_time}')
+                    print (f'{now_Z}----{G_D}')
                     game = Game()
                     game.date = gamedate_aware
                     game.idofapi = v['id']
@@ -49,7 +48,7 @@ class Command(BaseCommand):
                     game.homescore = 0
                     game.awayscore = 0
                     print(game)
-                    counter += 1
-                    # game.save()
+                    # counter += 1
+                    game.save()
                     print(counter)
         
